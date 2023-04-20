@@ -16,10 +16,9 @@ Road roads[NUM];
 
 Graph school;
 
-ifstream info_schl("./testin/school_info.in");
-ifstream info_buid("./testin/building_info.in");
-ifstream info_road("./testin/road_info.in");
-ifstream info_stu("./testin/student_info.in");
+ifstream info_schl("./testin/school/school_info.in");
+ifstream info_buid("./testin/school/building_info.in");
+ifstream info_road("./testin/school/road_info.in");
 
 ofstream testout("./test.out");
 void out_dict()
@@ -97,42 +96,4 @@ void Go(int a, int b)
 {
 	bool flag = school.P2P(buids[a].posi, buids[b].posi);
 	// school.pathout();
-}
-
-void stutest()
-{
-	int num_reqs;
-	string a, b;
-
-	info_schl >> num_reqs;
-
-	for (int i = 1; i <= num_reqs; i++)
-	{
-		info_stu >> a >> b;
-		int aid = dict[a];
-		int bid = dict[b];
-
-		testout << i << endl;
-		Go(aid, bid);
-		testout << endl;
-	}
-}
-
-void stuinit()
-{
-	int num_reqs;
-	string a, b;
-
-	info_schl >> num_reqs;
-
-	for (int i = 1; i <= num_reqs; i++)
-	{
-		info_stu >> a >> b;
-		int aid = dict[a];
-		int bid = dict[b];
-
-		testout << i << endl;
-		Go(aid, bid);
-		testout << endl;
-	}
 }
