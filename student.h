@@ -15,6 +15,7 @@ private:
 	Position now;
 
 	int less_num;
+	int a;
 
 
 public:
