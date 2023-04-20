@@ -16,11 +16,14 @@ class Activity // 学生活动信息
 private:
 	bool kind; // 0表示课程，1表示活动
 	string name;
+
 	Tome tome;
 	int last; // 持续时长
-	int frequency;
+
 	bool form; // 0表示线下，1表示线上
 	Position loca; // 线下地址或线上网址
+
+	int frequency;
 
 public:
 	void init_lesson(string nam, Tome tome, int last, Position loca, bool op);
