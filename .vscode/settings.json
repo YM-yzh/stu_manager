@@ -1,0 +1,16 @@
+{
+	"C_Cpp.intelliSenseEngineFallback": "enabled",
+	"files.associations": {
+		"string": "cpp",
+		"array": "cpp",
+		"fstream": "cpp",
+		"tuple": "cpp",
+		"iosfwd": "cpp",
+		"map": "cpp",
+		"iostream": "cpp",
+		"ostream": "cpp",
+		"*.tcc": "cpp",
+		"deque": "cpp",
+		"vector": "cpp"
+	}
+}
