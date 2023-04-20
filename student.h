@@ -3,7 +3,8 @@
 int num_stu;
 map<int, int> stu;
 
-ifstream info_stu("./testin/student/student_info.in");
+ifstream info_stu(file_path + "student/student_info.in");
+string file_mkd = file_path + "student/stu_";
 
 class Student // 学生基本信息
 {
@@ -15,8 +16,9 @@ private:
 	Position now;
 
 	int less_num;
-	int a;
-
+	vector<Activity> less;
+	int acti_num;
+	vector<Activity> less;
 
 public:
 	void set_id(int newid);
@@ -25,6 +27,8 @@ public:
 	void set_domitory(Position loca);
 	Position get_Location();
 };
+
+vector<Student> stu;
 
 void Student::set_id(int newid)
 {
@@ -46,26 +50,19 @@ Position Student::get_Location()
 	return this->now;
 }
 
-void stutest()
+void stuinit()
 {
-	int num_reqs;
-	string a, b;
+	info_stu >> num_stu;
 
-	info_schl >> num_reqs;
-
-	for (int i = 1; i <= num_reqs; i++)
+	string ss;
+	for (int i = 1; i <= num_stu; i++)
 	{
-		info_stu >> a >> b;
-		int aid = dict[a];
-		int bid = dict[b];
-
-		testout << i << endl;
-		Go(aid, bid);
-		testout << endl;
+		info_stu >> ss;
+		ifstream info_ss(file_mkd + ss + "/lesson.in");
 	}
 }
 
-void stuinit()
+void stutest()
 {
 	int num_reqs;
 	string a, b;

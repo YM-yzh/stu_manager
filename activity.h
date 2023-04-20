@@ -19,8 +19,8 @@ private:
 	Tome tome;
 	int last; // 持续时长
 	int frequency;
-	Position loca; // 线下地址或线上网址
 	bool form; // 0表示线下，1表示线上
+	Position loca; // 线下地址或线上网址
 
 public:
 	void init_lesson(string nam, Tome tome, int last, Position loca, bool op);
