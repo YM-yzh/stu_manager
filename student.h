@@ -13,7 +13,7 @@ public:
 	void set_id(int newid);
 	void set_name(string str);
 	int get_id();
-	void set_location(Position newloc);
+	void set_domitory(Position newloc);
 	Position get_Location();
 };
 
@@ -27,7 +27,7 @@ int Student::get_id()
 	return this->id;
 }
 
-void Student::set_location(Position newloc)
+void Student::set_domitory(Position newloc)
 {
 	this->now = newloc;
 }
