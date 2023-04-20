@@ -16,9 +16,10 @@ Road roads[NUM];
 
 Graph school;
 
-ifstream info_schl("./testin/school/school_info.in");
-ifstream info_buid("./testin/school/building_info.in");
-ifstream info_road("./testin/school/road_info.in");
+const string file_path = "./testin/";
+ifstream info_schl(file_path + "school/school_info.in");
+ifstream info_buid(file_path + "school/building_info.in");
+ifstream info_road(file_path + "school/road_info.in");
 
 ofstream testout("./test.out");
 void out_dict()
