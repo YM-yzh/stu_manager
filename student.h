@@ -7,6 +7,7 @@ class Student // 学生基本信息
 {
 private:
 	int id;
+	string user;
 	string name;
 	string pass;
 	string domi;
@@ -20,7 +21,7 @@ private:
 	map<string, int, greater<string>> acti_dict;
 
 public:
-	void init(string name, int id, string pass, string domi);
+	void init(string user, string name, int id, string pass, string domi);
 	void init_lesson(ifstream& ss);
 	void change_activity(string nam, Tome begin, Tome end, Position loc, bool op);
 	void cancel_activity(string nam);
@@ -33,8 +34,9 @@ int num_stu;
 Student stus[NUM];
 map<int, int> stu_dict;
 
-void Student::init(string name, int id, string pass, string domi)
+void Student::init(string user, string name, int id, string pass, string domi)
 {
+	this->user = user;
 	this->name = name;
 	this->id = id;
 	this->pass = pass;
@@ -85,7 +87,7 @@ void stuinit()
 		info_ss.open(file_mkd + ss + "/_info.in");
 
 		info_ss >> name >> id >> pass >> domi;
-		stus[i].init(name, id, pass, domi);
+		stus[i].init(ss,name, id, pass, domi);
 
 		info_ss.close();
 		info_ss.open(file_mkd + ss + "/lesson.in");

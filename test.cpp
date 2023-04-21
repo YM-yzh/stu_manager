@@ -4,6 +4,6 @@ int main()
 {
 	mapinit();
 	stuinit();
-	// stutest();
+	stutest();
 	return 0;
 }
