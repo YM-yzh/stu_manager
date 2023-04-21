@@ -9,7 +9,7 @@
 
 int num_buid;
 Building buids[NUM];
-map<string, int, greater<string>> dict;
+map<string, int, greater<string>> buid_dict;
 
 int num_road;
 Road roads[NUM];
@@ -24,7 +24,7 @@ ifstream info_road(file_path + "school/road_info.in");
 ofstream testout("./test.out");
 void out_dict()
 {
-	for (auto i : dict)
+	for (auto i : buid_dict)
 		testout << i.first << ' ' << i.second << endl;
 }
 
@@ -52,7 +52,7 @@ void mapinit()
 		// testout << x << ' ' << y << endl;
 
 		buids[i].init(name, x, y);
-		dict.emplace(name, i);
+		buid_dict.emplace(name, i);
 		school.add(i, buids[i].posi);
 	}
 

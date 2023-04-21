@@ -3,6 +3,7 @@
 #include <vector>
 #include <string.h>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 // using std::deque;
