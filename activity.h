@@ -4,7 +4,40 @@ struct Tome
 {
 	int day; // 表示星期
 	int hour; // 以小时为单位进行活动
+
+	void nextime();
+	void outime();
 };
+
+void Tome::nextime()
+{
+	int status = 0;
+	this->hour++;
+	if(this->hour == 24)
+	{
+		this->hour = 0;
+		this->day++;
+		status++;
+	}
+	if(this->day == 8)
+	{
+		this->day = 1;
+		status++;
+	}
+	switch(status)
+	{
+		case 1: cout << "新的一天！" << endl; break;
+		case 2: cout << "新的一周！" << endl; break;
+		default: break;
+	}
+}
+
+const string week[8] = {"", "一", "二", "三", "四", "五", "六", "日"};
+
+void Tome::outime()
+{
+	cout << "现在是星期" << week[this->day] << ' ' << this->hour << "点" << endl;
+}
 
 bool operator < (Tome a, Tome b)
 {
