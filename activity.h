@@ -9,6 +9,8 @@ struct Tome
 	void outime();
 };
 
+const string week[8] = {"", "一", "二", "三", "四", "五", "六", "日"};
+
 void Tome::nextime()
 {
 	int status = 0;
@@ -26,13 +28,11 @@ void Tome::nextime()
 	}
 	switch(status)
 	{
-		case 1: cout << "新的一天！" << endl; break;
-		case 2: cout << "新的一周！" << endl; break;
+		case 2: cout << "新的一周!" << endl;
+		case 1: cout << "新的一天! " << "今天星期" << week[this->day] << endl;
 		default: break;
 	}
 }
-
-const string week[8] = {"", "一", "二", "三", "四", "五", "六", "日"};
 
 void Tome::outime()
 {

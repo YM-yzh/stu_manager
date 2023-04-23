@@ -13,7 +13,7 @@ using namespace std;
 #define NUM 1004
 
 #define Width 100
-#define Length 100
+#define Legth 100
 
 template <typename T>
 void respwan(T &a, T &b)
@@ -57,8 +57,8 @@ class Graph
 {
 private:
 	int length, width;
-	int map[Width][Length];
-	bool vis[Width][Length];
+	int map[Width][Legth];
+	bool vis[Width][Legth];
 	deque<Position> path;
 
 public:

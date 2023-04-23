@@ -2,12 +2,14 @@
 #include <time.h>
 #include <windows.h>
 
-const int interval = 1;
+const double interval = 0.5;
+
+Student stu;
 
 int login()
 {
-	int id;
-	string username;
+	int id = 1;
+	string username, password;
 	bool status = 1;
 
 	cout << "请输入用户名/学号: ";
@@ -15,31 +17,56 @@ int login()
 	while (status)
 	{
 		cout << "请输入密码: ";
+		cin >> password;
 		if (true)
 			status = false;
 	}
 	return id;
 }
 
-void loop(Tome now) // 一周的循环
+void putime(Tome now)
 {
-	for (int i = 1; i <= 7; i++)
+	cout << "现在是" << setw(2) << setfill(' ') << now.hour << "点" << endl;
 }
 
-void timestart(int id)
+void output(Activity x)
+{
+	cout << setw(2) << setfill(' ') << x.tome.hour << "点 ~ ";
+	cout << setw(2) << setfill(' ') << x.tome.hour + x.last << "点 ";
+	cout << x.loca << ' ' << x.name << endl;
+}
+
+// nowtime
+// nextday::today activity
+// next time
+// now action
+// path
+
+void timestart()
 {
 	while(true)
 	{
-		Tome now;
-		now.day = 7;
-		now.hour = 20;
-		loop(now);
+		Tome now = {7, 22};
+		auto acti = stu.getless();
+		for(int i=1;i<=7;i++)
+		{
+			// loop(acti, now);
+			cout << "今天日程已结束!" << endl;
+ 			cout << endl << "明天日程: ";
+			stu.nextday(now.day); // 输出第二天日程
+			for(int i=1;i<=24;i++)
+			{
+				putime(now);
+				Sleep(1000*interval*2);
+				now.nextime();
+				if(now.hour == acti->tome.hour)
+				{
+					output(*acti);
+					acti++;
+				}
+			}
+		}
 	}
-	// nowtime
-	// nextday::today activity
-	// next time
-	// now action
-	// path
 }
 
 void refresh(int tim)
@@ -67,6 +94,7 @@ int main()
 	cout << "登陆成功！" << endl;
 	refresh(2);
 
-	timestart(id);
+	stu=stus[id];
+	timestart();
 	return 0;
 }

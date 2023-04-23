@@ -1,5 +1,7 @@
 #include "activity.h"
 
+typedef vector<Activity>::iterator vAiter;
+
 ifstream info_stu(file_path + "student/student_info.in");
 string file_mkd = file_path + "student/stu_";
 
@@ -13,9 +15,6 @@ private:
 	string domi;
 	Position now;
 
-	int less_num;
-	vector<Activity> less;
-
 	int acti_num;
 	vector<Activity> acti;
 	map<string, int, greater<string>> acti_dict;
@@ -25,6 +24,9 @@ public:
 	void init_lesson(ifstream& ss);
 	void change_activity(string nam, Tome begin, Tome end, Position loc, bool op);
 	void cancel_activity(string nam);
+
+	vAiter getless();
+	void nextday(int day);
 
 	int get_id();
 	Position get_Location();
@@ -41,6 +43,25 @@ void Student::init(string user, string name, int id, string pass, string domi)
 	this->id = id;
 	this->pass = pass;
 	this->domi = domi;
+}
+
+vAiter Student::getless()
+{
+	return this->acti.begin();
+}
+
+void Student::nextday(int day)
+{
+	day = day%7 + 1;
+	cout << "星期" << week[day] << endl;
+	for(auto i : this->acti)
+	{
+		if(i.tome.day > day)
+			break;
+		cout << setw(2) << setfill(' ') << i.tome.hour << "点 ~ ";
+		cout << setw(2) << setfill(' ') << i.tome.hour + i.last << "点 ";
+		cout << i.loca << ' ' << i.name << endl;
+	}
 }
 
 int Student::get_id()
@@ -61,15 +82,16 @@ void actiout(vector<Activity> x)
 
 void Student::init_lesson(ifstream& ss)
 {
-	ss >> this->less_num;
+	ss >> this->acti_num;
 	Activity x;
-	for(int i=1;i<=less_num;i++)
+	for(int i=1;i<=acti_num;i++)
 	{
 		ss >> x.name >> x.tome.day >> x.tome.hour >> x.last >> x.form >> x.loca >> x.frequency;
-		this->less.push_back(x);
+		this->acti.push_back(x);
+		this->acti_dict.emplace(x.name, i-1);
 	}
-	sort(this->less.begin(), this->less.end());
-	// actiout(this->less);
+	sort(this->acti.begin(), this->acti.end());
+	// actiout(this->acti);
 }
 
 void stuinit()
