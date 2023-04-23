@@ -72,18 +72,18 @@ void mapinit()
 		school.add(roads[i].begin, roads[i].end);
 	}
 
-	school.textout();
+	school.textout(testout);
 }
 
-void Graph::textout()
+void Graph::textout(ostream& xout)
 {
 	int wid = this->width;
 	int len = this->length;
 	for (int i = 1; i <= wid; i++)
 	{
 		for (int j = 1; j <= len; j++)
-			testout << setw(4) << setfill(' ') << this->map[i][j];
-		testout << endl;
+			xout << setw(4) << setfill(' ') << this->map[i][j];
+		xout << endl;
 	}
 }
 

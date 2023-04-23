@@ -10,7 +10,7 @@ int login()
 {
 	int id = 1;
 	string username, password;
-	bool status = 1;
+	bool status = true;
 
 	cout << "请输入用户名/学号: ";
 	cin >> username;
@@ -29,13 +29,6 @@ void putime(Tome now)
 	cout << "现在是" << setw(2) << setfill(' ') << now.hour << "点" << endl;
 }
 
-void output(Activity x)
-{
-	cout << setw(2) << setfill(' ') << x.tome.hour << "点 ~ ";
-	cout << setw(2) << setfill(' ') << x.tome.hour + x.last << "点 ";
-	cout << x.loca << ' ' << x.name << endl;
-}
-
 // nowtime
 // nextday::today activity
 // next time
@@ -47,22 +40,23 @@ void timestart()
 	while(true)
 	{
 		Tome now = {7, 22};
-		auto acti = stu.getless();
+		auto atci = stu.getless();
 		for(int i=1;i<=7;i++)
 		{
-			// loop(acti, now);
+			// loop(atci, now);
 			cout << "今天日程已结束!" << endl;
  			cout << endl << "明天日程: ";
 			stu.nextday(now.day); // 输出第二天日程
+
 			for(int i=1;i<=24;i++)
 			{
 				putime(now);
 				Sleep(1000*interval*2);
 				now.nextime();
-				if(now.hour == acti->tome.hour)
+				if(now.hour == atci->tome.hour)
 				{
-					output(*acti);
-					acti++;
+					atci->textout(cout);
+					atci++;
 				}
 			}
 		}
@@ -76,7 +70,7 @@ void refresh(int tim)
 	cout << "---- 学生日程管理系统 v1.0 ----" << endl;
 }
 
-int main()
+void preload()
 {
 	cout << "正在载入地图信息..." << endl;
 	mapinit();
@@ -89,12 +83,17 @@ int main()
 	if (!id)
 	{
 		// crash();
-		return 1;
+		exit(0);
 	}
 	cout << "登陆成功！" << endl;
 	refresh(2);
 
-	stu=stus[id];
+	stu = stus[id];
+}
+
+int main()
+{
+	preload();
 	timestart();
 	return 0;
 }

@@ -13,7 +13,7 @@ private:
 	string name;
 	string pass;
 	string domi;
-	Position now;
+	int now;
 
 	int acti_num;
 	vector<Activity> acti;
@@ -21,6 +21,8 @@ private:
 
 public:
 	void init(string user, string name, int id, string pass, string domi);
+	bool check(string str);
+
 	void init_lesson(ifstream& ss);
 	void change_activity(string nam, Tome begin, Tome end, Position loc, bool op);
 	void cancel_activity(string nam);
@@ -29,7 +31,9 @@ public:
 	void nextday(int day);
 
 	int get_id();
-	Position get_Location();
+	int get_Location();
+
+	void textout(ostream& xout);
 };
 
 int num_stu;
@@ -45,6 +49,11 @@ void Student::init(string user, string name, int id, string pass, string domi)
 	this->domi = domi;
 }
 
+bool Student::check(string str)
+{
+	return str == this->pass;
+}
+
 vAiter Student::getless()
 {
 	return this->acti.begin();
@@ -56,6 +65,8 @@ void Student::nextday(int day)
 	cout << "星期" << week[day] << endl;
 	for(auto i : this->acti)
 	{
+		if(i.tome.day < day)
+			continue;
 		if(i.tome.day > day)
 			break;
 		cout << setw(2) << setfill(' ') << i.tome.hour << "点 ~ ";
@@ -69,7 +80,7 @@ int Student::get_id()
 	return this->id;
 }
 
-Position Student::get_Location()
+int Student::get_Location()
 {
 	return this->now;
 }
@@ -94,6 +105,15 @@ void Student::init_lesson(ifstream& ss)
 	// actiout(this->acti);
 }
 
+void Student::textout(ostream& xout)
+{
+	xout << this->user << endl;
+	xout << this->name << ' ' << this->id << ' ' << this->pass << ' ' << this->domi << endl;
+	xout << this->acti_num << endl;
+	for(auto i : this->acti)
+		i.textout(testout);
+}
+
 void stuinit()
 {
 	info_stu >> num_stu;
@@ -115,6 +135,8 @@ void stuinit()
 		info_ss.open(file_mkd + ss + "/lesson.in");
 		stus[i].init_lesson(info_ss);
 		info_ss.close();
+
+		stus[i].textout(testout);
 	}
 }
 

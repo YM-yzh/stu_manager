@@ -69,7 +69,7 @@ public:
 	void add(int id, Position pos);
 	bool add(Position begin, Position end);
 
-	void textout();
+	void textout(ostream& xout);
 	void pathout();
 	bool P2P(Position start, Position desti);
 	bool DFS(Position start, Position desti);

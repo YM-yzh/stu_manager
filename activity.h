@@ -56,9 +56,18 @@ struct Activity // 学生活动信息
 	string loca; // 线下地址或线上网址
 
 	int frequency;
+
+	void textout(ostream& xout);
 };
 
 bool operator < (Activity a, Activity b)
 {
 	return a.tome < b.tome;
+}
+
+void Activity::textout(ostream& xout)
+{
+	xout << setw(2) << setfill(' ') << this->tome.hour << "点 ~ ";
+	xout << setw(2) << setfill(' ') << this->tome.hour + this->last << "点 ";
+	xout << this->loca << ' ' << this->name << endl;
 }
