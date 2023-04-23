@@ -8,7 +8,7 @@ string file_mkd = file_path + "student/stu_";
 class Student // 学生基本信息
 {
 private:
-	int id;
+	string id;
 	string user;
 	string name;
 	string pass;
@@ -20,7 +20,7 @@ private:
 	map<string, int, greater<string>> acti_dict;
 
 public:
-	void init(string user, string name, int id, string pass, string domi);
+	void init(string user, string name, string id, string pass, string domi);
 	bool check(string str);
 
 	void init_lesson(ifstream& ss);
@@ -30,7 +30,7 @@ public:
 	vAiter getless();
 	void nextday(int day);
 
-	int get_id();
+	string get_id();
 	int get_Location();
 
 	void textout(ostream& xout);
@@ -38,9 +38,9 @@ public:
 
 int num_stu;
 Student stus[NUM];
-map<int, int> stu_dict;
+map<string, int, greater<string>> stus_dict;
 
-void Student::init(string user, string name, int id, string pass, string domi)
+void Student::init(string user, string name, string id, string pass, string domi)
 {
 	this->user = user;
 	this->name = name;
@@ -75,7 +75,7 @@ void Student::nextday(int day)
 	}
 }
 
-int Student::get_id()
+string Student::get_id()
 {
 	return this->id;
 }
@@ -119,7 +119,7 @@ void stuinit()
 	info_stu >> num_stu;
 
 	string name, pass, domi;
-	int id;
+	string id;
 
 	string ss;
 	ifstream info_ss;
@@ -130,6 +130,8 @@ void stuinit()
 
 		info_ss >> name >> id >> pass >> domi;
 		stus[i].init(ss,name, id, pass, domi);
+		// stus_dict.emplace(id, i);
+		stus_dict.emplace(ss, i);
 
 		info_ss.close();
 		info_ss.open(file_mkd + ss + "/lesson.in");

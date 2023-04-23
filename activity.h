@@ -6,7 +6,8 @@ struct Tome
 	int hour; // 以小时为单位进行活动
 
 	void nextime();
-	void outime();
+	void outime(ostream& xout);
+	void putime(ostream& xout);
 };
 
 const string week[8] = {"", "一", "二", "三", "四", "五", "六", "日"};
@@ -34,9 +35,14 @@ void Tome::nextime()
 	}
 }
 
-void Tome::outime()
+void Tome::outime(ostream& xout)
 {
-	cout << "现在是星期" << week[this->day] << ' ' << this->hour << "点" << endl;
+	xout << "现在是星期" << week[this->day] << ' ' << this->hour << "点" << endl;
+}
+
+void Tome::putime(ostream& xout)
+{
+	xout << "现在是" << setw(2) << setfill(' ') << this->hour << "点" << endl;
 }
 
 bool operator < (Tome a, Tome b)

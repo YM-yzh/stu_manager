@@ -2,10 +2,8 @@
 
 #include <map>
 
-#include <iostream>
 #include <iomanip>
 #include <fstream>
-#include <iostream>
 
 int num_buid;
 Building buids[NUM];

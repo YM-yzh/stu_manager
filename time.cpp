@@ -14,19 +14,18 @@ int login()
 
 	cout << "请输入用户名/学号: ";
 	cin >> username;
+
+	id = stus_dict[username];
+	stu = stus[id];
+
 	while (status)
 	{
 		cout << "请输入密码: ";
 		cin >> password;
-		if (true)
+		if (stu.check(password))
 			status = false;
 	}
 	return id;
-}
-
-void putime(Tome now)
-{
-	cout << "现在是" << setw(2) << setfill(' ') << now.hour << "点" << endl;
 }
 
 // nowtime
@@ -50,7 +49,7 @@ void timestart()
 
 			for(int i=1;i<=24;i++)
 			{
-				putime(now);
+				now.putime(cout);
 				Sleep(1000*interval*2);
 				now.nextime();
 				if(now.hour == atci->tome.hour)
@@ -79,16 +78,14 @@ void preload()
 	cout << "开始模拟" << endl;
 	refresh(2);
 
-	int id = login();
-	if (!id)
+	int status = login();
+	if (!status)
 	{
 		// crash();
 		exit(0);
 	}
 	cout << "登陆成功！" << endl;
 	refresh(2);
-
-	stu = stus[id];
 }
 
 int main()
