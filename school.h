@@ -14,7 +14,7 @@ Road roads[NUM];
 
 Graph school;
 
-const string file_path = "./testin/";
+const string file_path = "./cache/";
 ifstream info_schl(file_path + "school/school_info.in");
 ifstream info_buid(file_path + "school/building_info.in");
 ifstream info_road(file_path + "school/road_info.in");
