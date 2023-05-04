@@ -32,7 +32,7 @@ struct Position
 
 void out_posi(Position a)
 {
-	cout << a.x << a.y << endl;
+	cout << a.x << ',' << a.y << endl;
 }
 
 bool operator == (Position a, Position b)
@@ -70,7 +70,10 @@ public:
 	bool add(Position begin, Position end);
 
 	void textout(ostream& xout);
+	void pointout(int x);
 	void pathout();
+
+	int getpoint(int x, int y);
 	bool P2P(Position start, Position desti);
 	bool DFS(Position start, Position desti);
 };
@@ -98,6 +101,11 @@ bool Graph::add(Position begin, Position end)
 			if (this->map[i][j] == -1)
 				this->map[i][j] = 0;
 	return true;
+}
+
+int Graph::getpoint(int x, int y)
+{
+	return this->map[x][y];
 }
 
 const int X[4] = {-1, 1, 0, 0};

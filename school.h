@@ -85,6 +85,21 @@ void Graph::textout(ostream& xout)
 	}
 }
 
+void Graph::pointout(int x)
+{
+	for(auto i : this->path)
+	{
+		int t = school.getpoint(i.x, i.y);
+		if(t > 0)
+		{
+			cout << buids[t].name;
+			if(t != x)
+				cout << "->";
+		}
+	}
+	cout << endl;
+}
+
 void Graph::pathout()
 {
 	for(auto i : this->path)
@@ -94,5 +109,6 @@ void Graph::pathout()
 void Go(int a, int b)
 {
 	bool flag = school.P2P(buids[a].posi, buids[b].posi);
-	// school.pathout();
+	school.pathout();
+	school.pointout(b);
 }

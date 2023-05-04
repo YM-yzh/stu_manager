@@ -15,6 +15,15 @@
 		"iomanip": "cpp",
 		"unordered_map": "cpp",
 		"string_view": "cpp",
-		"initializer_list": "cpp"
+		"initializer_list": "cpp",
+		"functional": "cpp",
+		"iterator": "cpp",
+		"memory_resource": "cpp",
+		"optional": "cpp",
+		"istream": "cpp",
+		"memory": "cpp",
+		"sstream": "cpp",
+		"streambuf": "cpp",
+		"utility": "cpp"
 	}
 }

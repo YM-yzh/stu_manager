@@ -29,6 +29,7 @@ public:
 
 	vAiter getless();
 	void nextday(int day);
+	void move(string& loca);
 
 	string get_id();
 	int get_Location();
@@ -47,6 +48,7 @@ void Student::init(string user, string name, string id, string pass, string domi
 	this->id = id;
 	this->pass = pass;
 	this->domi = domi;
+	this->now = buid_dict[domi];
 }
 
 bool Student::check(string str)
@@ -73,6 +75,14 @@ void Student::nextday(int day)
 		cout << setw(2) << setfill(' ') << i.tome.hour + i.last << "点 ";
 		cout << i.loca << ' ' << i.name << endl;
 	}
+}
+
+void Student::move(string& loca)
+{
+	int aid = this->now;
+	int bid = buid_dict[loca];
+	Go(aid, bid);
+	this->now = bid;
 }
 
 string Student::get_id()

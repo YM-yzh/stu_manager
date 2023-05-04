@@ -55,6 +55,7 @@ void timestart()
 				if(now.hour == atci->tome.hour)
 				{
 					atci->textout(cout);
+					stu.move(atci->loca);
 					atci++;
 				}
 			}
