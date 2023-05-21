@@ -60,8 +60,9 @@ struct Activity // 学生活动信息
 
 	bool form; // 0表示线下，1表示线上
 	string loca; // 线下地址或线上网址
+	string room; // 线下教室房间号
 
-	int frequency;
+	bool frequency; // 1表示单次，0表示每周
 
 	void textout(ostream& xout);
 };

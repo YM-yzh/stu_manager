@@ -23,7 +23,7 @@ private:
 	map<string, int, greater<string>> acti_dict;
 
 public:
-	void init(string user, string name, string id, string pass, string domi);
+	void init(string user, string name, string id, string clas, string pass, string domi);
 	bool check(string str);
 
 	void init_lesson(ifstream& ss);
@@ -44,12 +44,14 @@ int num_stu;
 Student stus[NUM];
 map<string, int, greater<string>> stus_dict;
 
-void Student::init(string user, string name, string id, string pass, string domi)
+void Student::init(string user, string name, string id, string clas, string pass, string domi)
 {
 	this->user = user;
+	this->pass = pass;
+
 	this->name = name;
 	this->id = id;
-	this->pass = pass;
+	this->clas = clas;
 	this->domi = domi;
 	this->now = buid_dict[domi];
 }
@@ -110,7 +112,10 @@ void Student::init_lesson(ifstream& ss)
 	Activity x;
 	for(int i=1;i<=acti_num;i++)
 	{
-		ss >> x.name >> x.tome.day >> x.tome.hour >> x.last >> x.form >> x.loca >> x.frequency;
+		ss >> x.name >> x.tome.day >> x.tome.hour >> x.last >> x.form >> x.loca;
+		if(!x.form)
+			ss >> x.room; // 线下课程输入房间号
+		ss >> x.frequency;
 		this->acti.push_back(x);
 		this->acti_dict.emplace(x.name, i-1);
 	}
@@ -132,7 +137,7 @@ void stuinit()
 	info_stu >> num_stu;
 
 	string name, pass, domi;
-	string id;
+	string id, clas;
 
 	string ss;
 	ifstream info_ss;
@@ -141,8 +146,8 @@ void stuinit()
 		info_stu >> ss;
 		info_ss.open(file_mkd + ss + "/_info.in");
 
-		info_ss >> name >> id >> pass >> domi;
-		stus[i].init(ss,name, id, pass, domi);
+		info_ss >> name >> id >> clas >> pass >> domi;
+		stus[i].init(ss,name, id, clas, pass, domi);
 		// stus_dict.emplace(id, i);
 		stus_dict.emplace(ss, i);
 
