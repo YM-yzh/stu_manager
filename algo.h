@@ -53,6 +53,14 @@ struct Building
 	void init(string name, int x, int y);
 };
 
+struct Path
+{
+	Position now;
+	deque<Position> path;
+};
+
+const Path ERR = {(Position){-1, -1}};
+
 class Graph
 {
 private:
@@ -76,6 +84,7 @@ public:
 	int getpoint(int x, int y);
 	bool P2P(Position start, Position desti);
 	bool DFS(Position start, Position desti);
+	Path BFS(Position start, Position desti);
 };
 
 void Graph::set(int wid, int len)
@@ -145,7 +154,7 @@ bool Graph::DFS(Position start, Position desti)
 	}
 	return false;
 }
-/*
+
 Path Graph::BFS(Position start, Position desti)
 {
 	deque<Path> q;
@@ -179,7 +188,7 @@ Path Graph::BFS(Position start, Position desti)
 	}
 	return ERR;
 }
-*/
+
 void Road::init(int x1, int y1, int x2, int y2)
 {
 	this->begin = (Position){x1, y1};
