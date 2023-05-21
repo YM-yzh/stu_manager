@@ -8,10 +8,13 @@ string file_mkd = file_path + "student/stu_";
 class Student // 学生基本信息
 {
 private:
-	string id;
 	string user;
-	string name;
 	string pass;
+
+	string id;
+	string clas;
+	string name;
+
 	string domi;
 	int now;
 
