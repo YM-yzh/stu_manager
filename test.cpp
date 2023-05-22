@@ -34,9 +34,9 @@ int login()
 
 void Sleep(int tim)
 {
-	int a=0;
+	int a = 0;
 	for(int i=1;i<=1e8*tim;i++)
-		a=a+1;
+		a = a+1;
 }
 
 void timestart()
