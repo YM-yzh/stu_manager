@@ -52,10 +52,10 @@ bool operator < (Tome a, Tome b)
 
 struct Activity // 学生活动信息
 {
-	bool kind; // 0表示课程，1表示活动
-	string name;
+	bool kind; // 1表示课程，0表示活动/临时事务
+	string name; // 活动名称
 
-	Tome tome;
+	Tome tome; // 活动时间
 	int last; // 持续时长
 
 	bool form; // 0表示线下，1表示线上

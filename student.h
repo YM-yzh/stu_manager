@@ -5,7 +5,7 @@ typedef vector<Activity>::iterator vAiter;
 ifstream info_stu(file_path + "student/student_info.in");
 string file_mkd = file_path + "student/stu_";
 
-class Student // 学生基本信息
+class Student // 学生
 {
 private:
 	string user;
@@ -24,13 +24,15 @@ private:
 
 public:
 	void init(string user, string name, string id, string clas, string pass, string domi);
-	bool check(string str);
+	bool check(string str); // 检查密码
 
 	void init_lesson(ifstream& ss);
 	void change_activity(string nam, Tome begin, Tome end, Position loc, bool op);
 	void cancel_activity(string nam);
 
-	vAiter getless();
+	void add_alarm(string name, Tome tome, int freq);
+
+	vAiter getless(); // 获取活动数组开头
 	void nextday(int day);
 	void move(string& loca);
 
