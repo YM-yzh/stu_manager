@@ -158,20 +158,22 @@ void stuinit()
 		stus[i].init_lesson(info_ss);
 		info_ss.close();
 
-		stus[i].textout(testout);
+		// stus[i].textout(testout);
 	}
 }
+
+ifstream info_reqs(file_path + "requests.in");
 
 void stutest()
 {
 	int num_reqs;
 	string a, b;
 
-	info_schl >> num_reqs;
+	info_reqs >> num_reqs;
 
 	for (int i = 1; i <= num_reqs; i++)
 	{
-		info_stu >> a >> b;
+		info_reqs >> a >> b;
 		int aid = buid_dict[a];
 		int bid = buid_dict[b];
 

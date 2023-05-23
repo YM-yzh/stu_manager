@@ -78,11 +78,11 @@ public:
 	bool add(Position begin, Position end);
 
 	void textout(ostream& xout);
-	void pointout(int x);
-	void pathout();
+	// void pointout(int x);
+	// void pathout();
 
 	int getpoint(int x, int y);
-	bool P2P(Position start, Position desti);
+	Path P2P(Position start, Position desti);
 	bool DFS(Position start, Position desti);
 	Path BFS(Position start, Position desti);
 };
@@ -120,12 +120,13 @@ int Graph::getpoint(int x, int y)
 const int X[4] = {-1, 1, 0, 0};
 const int Y[4] = { 0, 0, 1,-1};
 
-bool Graph::P2P(Position start, Position desti)
+Path Graph::P2P(Position start, Position desti)
 {
 	memset(this->vis, false, sizeof(this->vis));
-	while(this->path.size())
-		this->path.pop_back();
-	return this->DFS(start, desti);
+	// while(this->path.size())
+	// 	this->path.pop_back();
+	// return this->DFS(start, desti);
+	return this->BFS(start, desti);
 }
 
 bool Graph::DFS(Position start, Position desti)
@@ -145,8 +146,8 @@ bool Graph::DFS(Position start, Position desti)
 		Position now;
 		now.x=start.x+X[i];
 		now.y=start.y+Y[i];
-		bool f = this->DFS(now, desti);
-		if(f)
+		bool flag = this->DFS(now, desti);
+		if(flag)
 		{
 			this->path.push_front(start);
 			return true;
@@ -159,7 +160,6 @@ Path Graph::BFS(Position start, Position desti)
 {
 	deque<Path> q;
 	Path a;
-	memset(this->vis, false, sizeof(this->vis));
 
 	a.now = start;
 	q.push_back(a);
@@ -174,7 +174,7 @@ Path Graph::BFS(Position start, Position desti)
 			a.path.push_back(a.now);
 			return a;
 		}
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			Path b = a;
 			b.now.x += X[i];
