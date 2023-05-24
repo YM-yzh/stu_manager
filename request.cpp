@@ -36,6 +36,27 @@ void stutest()
 		testout << i << flag << endl;
 	}
 	stu.textout(testout);
+
+	info_reqs >> num_reqs;
+
+	for (int i = 1; i <= num_reqs; i++)
+	{
+		string str;
+		info_reqs >> str;
+		bool flag = stu.cancel_acti(str);
+		testout << i << flag << endl;
+	}
+	stu.textout(testout);
+
+	info_reqs >> num_reqs;
+
+	for (int i = 1; i <= num_reqs; i++)
+	{
+		x.read(info_reqs);
+		bool flag = stu.change_acti(x);
+		testout << i << flag << endl;
+	}
+	stu.textout(testout);
 }
 
 int main()
