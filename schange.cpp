@@ -7,7 +7,7 @@ ifstream info_schl(file_path + "school/school_info.in");
 ifstream info_buid(file_path + "school/building_info.in");
 ifstream info_road(file_path + "school/road_info.in");
 
-ofstream testout("./test.out");
+ofstream debugout("./test.out");
 
 void mapchange()
 {
@@ -19,7 +19,7 @@ void mapchange()
 	info_schl >> num_buid;
 	info_schl >> num_road;
 
-	testout << num_buid << endl << num_road << endl;
+	debugout << num_buid << endl << num_road << endl;
 
 	string name;
 
@@ -29,8 +29,8 @@ void mapchange()
 		info_buid >> name;
 		info_buid >> x >> y;
 
-		testout << name << ' ';
-		testout << x+1 << ' ' << y+1 << endl;
+		debugout << name << ' ';
+		debugout << x+1 << ' ' << y+1 << endl;
 	}
 
 	// out_dict();
@@ -42,8 +42,8 @@ void mapchange()
 		info_road >> x1 >> y1;
 		info_road >> x2 >> y2;
 
-		testout << x1+1 << ' ' << y1+1 << ' ';
-		testout << x2+1 << ' ' << y2+1 << endl;
+		debugout << x1+1 << ' ' << y1+1 << ' ';
+		debugout << x2+1 << ' ' << y2+1 << endl;
 	}
 }
 

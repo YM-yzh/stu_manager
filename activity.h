@@ -1,5 +1,7 @@
 #include "school.h"
 
+const string week[8] = {"", "一", "二", "三", "四", "五", "六", "日"};
+
 struct Tome
 {
 	int day; // 表示星期
@@ -10,7 +12,32 @@ struct Tome
 	void putime(ostream& xout);
 };
 
-const string week[8] = {"", "一", "二", "三", "四", "五", "六", "日"};
+bool operator < (Tome a, Tome b)
+{
+	return (a.day == b.day) ? a.hour < b.hour : a.day < b.day;
+}
+
+struct Activity // 学生活动信息
+{
+	bool kind; // 1表示课程，0表示活动/临时事务
+	string name; // 活动名称
+
+	Tome tome; // 活动时间
+	int last; // 持续时长
+
+	bool form; // 0表示线下，1表示线上
+	string loca; // 线下地址或线上网址
+	string room; // 线下教室房间号
+
+	bool frequency; // 1表示单次，0表示每周
+
+	void textout(ostream& xout);
+};
+
+bool operator < (Activity a, Activity b)
+{
+	return a.tome < b.tome;
+}
 
 void Tome::nextime()
 {
@@ -43,33 +70,6 @@ void Tome::outime(ostream& xout)
 void Tome::putime(ostream& xout)
 {
 	xout << "现在是" << setw(2) << setfill(' ') << this->hour << "点" << endl;
-}
-
-bool operator < (Tome a, Tome b)
-{
-	return (a.day == b.day) ? a.hour < b.hour : a.day < b.day;
-}
-
-struct Activity // 学生活动信息
-{
-	bool kind; // 1表示课程，0表示活动/临时事务
-	string name; // 活动名称
-
-	Tome tome; // 活动时间
-	int last; // 持续时长
-
-	bool form; // 0表示线下，1表示线上
-	string loca; // 线下地址或线上网址
-	string room; // 线下教室房间号
-
-	bool frequency; // 1表示单次，0表示每周
-
-	void textout(ostream& xout);
-};
-
-bool operator < (Activity a, Activity b)
-{
-	return a.tome < b.tome;
 }
 
 void Activity::textout(ostream& xout)

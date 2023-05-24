@@ -19,11 +19,11 @@ ifstream info_schl(file_path + "school/school_info.in");
 ifstream info_buid(file_path + "school/building_info.in");
 ifstream info_road(file_path + "school/road_info.in");
 
-ofstream testout("./test.out");
+ofstream debugout("./debug.out");
 void out_dict()
 {
 	for (auto i : buid_dict)
-		testout << i.first << ' ' << i.second << endl;
+		debugout << i.first << ' ' << i.second << endl;
 }
 
 void mapinit()
@@ -36,7 +36,7 @@ void mapinit()
 	info_schl >> num_buid;
 	info_schl >> num_road;
 
-	// testout << num_buid << ' ' << num_road << endl;
+	// debugout << num_buid << ' ' << num_road << endl;
 
 	string name;
 
@@ -46,8 +46,8 @@ void mapinit()
 		info_buid >> name;
 		info_buid >> x >> y;
 
-		// testout << name << ' ';
-		// testout << x << ' ' << y << endl;
+		// debugout << name << ' ';
+		// debugout << x << ' ' << y << endl;
 
 		buids[i].init(name, x, y);
 		buid_dict.emplace(name, i);
@@ -63,14 +63,14 @@ void mapinit()
 		info_road >> x1 >> y1;
 		info_road >> x2 >> y2;
 
-		// testout << x1 << ' ' << y1 << endl;
-		// testout << x2 << ' ' << y2 << endl;
+		// debugout << x1 << ' ' << y1 << endl;
+		// debugout << x2 << ' ' << y2 << endl;
 
 		roads[i].init(x1, y1, x2, y2);
 		school.add(roads[i].begin, roads[i].end);
 	}
 
-	school.textout(testout);
+	school.textout(debugout);
 }
 
 void Graph::textout(ostream& xout)
@@ -100,16 +100,16 @@ void pointout(deque<Position>&path, int x)
 	cout << endl;
 }
 
-void pathout(deque<Position>&path)
+void pathout(Path &res)
 {
-	for(auto i : path)
-		testout << '(' << i.x << ',' << i.y << ')' << endl;
+	for(auto i : res.path)
+		debugout << '(' << i.x << ',' << i.y << ')' << endl;
 }
 
 void Go(int a, int b)
 {
 	Path res = school.P2P(buids[a].posi, buids[b].posi);
 	res.path.push_back(res.now);
-	// pathout(res.path);
+	pathout(res);
 	// pointout(res.path, b);
 }

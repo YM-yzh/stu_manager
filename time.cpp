@@ -44,6 +44,7 @@ void timestart()
 		{
 			// loop(atci, now);
 			cout << "今天日程已结束!" << endl;
+			stu.rest();
  			cout << endl << "明天日程: ";
 			stu.nextday(now.day); // 输出第二天日程
 

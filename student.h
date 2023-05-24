@@ -1,4 +1,4 @@
-#include "activity.h"
+#include "acti.h"
 
 typedef vector<Activity>::iterator vAiter;
 
@@ -24,19 +24,22 @@ private:
 
 public:
 	void init(string user, string name, string id, string clas, string pass, string domi);
-	bool check(string str); // 检查密码
+	bool check(string str);                                         // 检查密码
 
 	void init_lesson(ifstream& ss);
-	void change_activity(string nam, Tome begin, Tome end, Position loc, bool op);
-	void cancel_activity(string nam);
+	int find_acti(string name);                                     // 二分查找课程
+	void change_acti(Activity acti);                                // 修改活动信息
+	void cancel_acti(string name);                                  // 取消活动
 
-	void add_alarm(string name, Tome tome, int freq);
+	void add_alarm(string name, Tome tome, int freq);               // 闹钟
+	void add_test(Activity test);                                   //管理员添加考试
 
-	vAiter getless(); // 获取活动数组开头
+	vAiter getless();                                               // 获取活动数组开头
 	void nextday(int day);
 	void move(string& loca);
+	void rest();
 
-	string get_id();
+	string get_class();
 	int get_Location();
 
 	void textout(ostream& xout);
@@ -68,6 +71,11 @@ vAiter Student::getless()
 	return this->acti.begin();
 }
 
+string Student::get_class()
+{
+	return this->clas;
+}
+
 void Student::nextday(int day)
 {
 	day = day%7 + 1;
@@ -92,9 +100,9 @@ void Student::move(string& loca)
 	this->now = bid;
 }
 
-string Student::get_id()
+void Student::rest()
 {
-	return this->id;
+	this->now = buid_dict[this->domi];
 }
 
 int Student::get_Location()
@@ -105,7 +113,7 @@ int Student::get_Location()
 void actiout(vector<Activity> x)
 {
 	for(auto i : x)
-		testout << i.name << endl;
+		debugout << i.name << endl;
 }
 
 void Student::init_lesson(ifstream& ss)
@@ -125,13 +133,30 @@ void Student::init_lesson(ifstream& ss)
 	// actiout(this->acti);
 }
 
+int Student::find_acti(string name)
+{
+	return -1;
+}
+
+void Student::change_acti(Activity acti)
+{
+	int seq = this->find(acti.name);
+	vAiter targt = this->acti.begin() + seq;
+	*targt = acti;
+}
+
+void Student::cancel_acti(string name)
+{
+
+}
+
 void Student::textout(ostream& xout)
 {
 	xout << this->user << endl;
 	xout << this->name << ' ' << this->id << ' ' << this->pass << ' ' << this->domi << endl;
 	xout << this->acti_num << endl;
 	for(auto i : this->acti)
-		i.textout(testout);
+		i.textout(debugout);
 }
 
 void stuinit()
@@ -158,7 +183,7 @@ void stuinit()
 		stus[i].init_lesson(info_ss);
 		info_ss.close();
 
-		// stus[i].textout(testout);
+		// stus[i].textout(debugout);
 	}
 }
 
@@ -177,8 +202,8 @@ void stutest()
 		int aid = buid_dict[a];
 		int bid = buid_dict[b];
 
-		testout << i << endl;
+		debugout << i << endl;
 		Go(aid, bid);
-		testout << endl;
+		debugout << endl;
 	}
 }
