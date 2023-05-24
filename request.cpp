@@ -1,4 +1,4 @@
-#include "student.h"
+#include "student.cpp"
 
 void preload()
 {

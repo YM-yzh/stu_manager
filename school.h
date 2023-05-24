@@ -1,4 +1,4 @@
-#include "algo.h"
+#include "algo.cpp"
 
 #include <map>
 
