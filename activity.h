@@ -10,9 +10,19 @@ struct Tome
 	void putime(ostream& xout);
 };
 
-bool operator < (Tome a, Tome b)
+bool cmp(Tome a, Tome b)
 {
 	return (a.day == b.day) ? a.hour < b.hour : a.day < b.day;
+}
+
+bool operator <= (Tome a, Tome b)
+{
+	return (a.day == b.day) ? a.hour <= b.hour : a.day < b.day;
+}
+
+Tome operator + (Tome a, int b)
+{
+	return (Tome){a.day, a.hour + b};
 }
 
 struct Activity // 学生活动信息
@@ -35,7 +45,12 @@ struct Activity // 学生活动信息
 
 bool operator < (Activity a, Activity b)
 {
-	return a.tome < b.tome;
+	return cmp(a.tome, b.tome);
+}
+
+bool operator <= (Activity a, Activity b)
+{
+	return a.tome <= b.tome;
 }
 
 const string week[8] = {"", "一", "二", "三", "四", "五", "六", "日"};
@@ -85,5 +100,5 @@ void Activity::textout(ostream& xout)
 {
 	xout << setw(2) << setfill(' ') << this->tome.hour << "点 ~ ";
 	xout << setw(2) << setfill(' ') << this->tome.hour + this->last << "点 ";
-	xout << this->loca << ' ' << this->name << endl;
+	xout << this->loca << ' ' << this->room << this->name << endl;
 }

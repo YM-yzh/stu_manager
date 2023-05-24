@@ -133,20 +133,33 @@ vAiter Student::find_acti(string name)
 	return this->acti.end();
 }
 
+bool test(vAiter tar, Activity acti)
+{
+	Activity l = *tar;
+	Activity r = *(tar+1);
+	return (l.tome+l.last) <= (acti.tome) && (acti.tome+acti.last) <= r.tome;
+}
+
 bool Student::find_acti(Activity acti)
 {
 	vAiter targt = lower_bound(this->acti.begin(), this->acti.end(), acti);
 	int left = 0;
-	int right = this->acti_num;
-	while(left < right)
+	int right = this->acti_num - 1;
+	while(left <= right)
 	{
 		int mid = (left + right) / 2;
 		vAiter now = this->acti.begin()	+ mid;
-		if (*now < acti)
-			left = mid;
+		if (*now <= acti)
+			left = mid+1;
 		else
-			right = mid;
+			right = mid-1;
 	}
+	targt = this->acti.begin() + left - 1;
+	if(!test(targt, acti))
+		return false;
+	this->acti.insert(targt+1, acti);
+	this->acti_num++;
+	return true;
 }
 
 bool Student::change_acti(Activity acti)
@@ -169,10 +182,8 @@ void Student::textout(ostream& xout)
 	xout << this->name << ' ' << this->id << ' ' << this->pass << ' ' << this->domi << endl;
 	xout << this->acti_num << endl;
 	for(auto i : this->acti)
-		i.textout(debugout);
+		i.textout(xout);
 }
-
-ifstream info_reqs(file_path + "requests.in");
 
 void actiout(vector<Activity> x)
 {
@@ -204,25 +215,6 @@ void stuinit()
 		stus[i].init_lesson(info_ss);
 		info_ss.close();
 
-		// stus[i].textout(debugout);
-	}
-}
-
-void stutest()
-{
-	int num_reqs;
-	string a, b;
-
-	info_reqs >> num_reqs;
-
-	for (int i = 1; i <= num_reqs; i++)
-	{
-		info_reqs >> a >> b;
-		int aid = buid_dict[a];
-		int bid = buid_dict[b];
-
-		debugout << i << endl;
-		Go(aid, bid);
-		debugout << endl;
+		stus[i].textout(debugout);
 	}
 }

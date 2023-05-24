@@ -17,6 +17,8 @@ using namespace std;
 #define Width 100
 #define Legth 100
 
+const string file_path = "./testin/";
+
 template <typename T>
 void respwan(T &a, T &b)
 {
