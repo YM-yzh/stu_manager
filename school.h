@@ -108,7 +108,7 @@ void pathout(Path &res)
 void Go(int a, int b)
 {
 	Path res = school.P2P(buids[a].posi, buids[b].posi);
-	res.path.push_back(res.now);
+	// res.path.push_back(res.now);
 	pathout(res);
 	// pointout(res.path, b);
 }

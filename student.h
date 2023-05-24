@@ -133,7 +133,7 @@ vAiter Student::find_acti(string name)
 	return this->acti.end();
 }
 
-bool test(vAiter tar, Activity acti)
+bool opins(vAiter tar, Activity acti)
 {
 	Activity l = *tar;
 	Activity r = *(tar+1);
@@ -155,7 +155,7 @@ bool Student::find_acti(Activity acti)
 			right = mid-1;
 	}
 	targt = this->acti.begin() + left - 1;
-	if(!test(targt, acti))
+	if(!opins(targt, acti))
 		return false;
 	this->acti.insert(targt+1, acti);
 	this->acti_num++;

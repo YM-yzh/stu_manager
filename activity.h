@@ -91,7 +91,7 @@ void Tome::putime(ostream& xout)
 void Activity::read(istream& ss)
 {
 	ss >> this->name >> this->tome.day >> this->tome.hour >> this->last >> this->form >> this->loca;
-	if(!this->form)
+	// if(!this->form)
 		ss >> this->room; // 线下课程输入房间号
 	ss >> this->frequency;
 }
