@@ -173,7 +173,12 @@ bool Student::change_acti(Activity acti)
 
 bool Student::cancel_acti(string name)
 {
-
+	auto targt = this->find_acti(name);
+	if(targt==this->acti.end())
+		return false;
+	this->acti.erase(targt);
+	this->acti_num--;
+	return true;
 }
 
 void Student::textout(ostream& xout)
