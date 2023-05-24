@@ -1,4 +1,4 @@
-#include "acti.h"
+#include "activity.h"
 
 typedef vector<Activity>::iterator vAiter;
 
@@ -32,7 +32,7 @@ public:
 	void cancel_acti(string name);                                  // 取消活动
 
 	void add_alarm(string name, Tome tome, int freq);               // 闹钟
-	void add_test(Activity test);                                   //管理员添加考试
+	void add_test(Activity test);                                   // 管理员添加考试
 
 	vAiter getless();                                               // 获取活动数组开头
 	void nextday(int day);
@@ -140,7 +140,7 @@ int Student::find_acti(string name)
 
 void Student::change_acti(Activity acti)
 {
-	int seq = this->find(acti.name);
+	int seq = this->find_acti(acti.name);
 	vAiter targt = this->acti.begin() + seq;
 	*targt = acti;
 }

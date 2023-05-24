@@ -54,7 +54,7 @@ void mapinit()
 		school.add(i, buids[i].posi);
 	}
 
-	// out_dict();
+	out_dict();
 
 	for (int i = 1; i <= num_road; i++)
 	{
