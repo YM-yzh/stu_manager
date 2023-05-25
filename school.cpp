@@ -9,17 +9,6 @@ Road roads[NUM] = {};
 
 Graph school = {};
 
-const string file_path = "./testin/";
-
-ifstream info_schl(file_path + "school/school_info.in");
-ifstream info_buid(file_path + "school/building_info.in");
-ifstream info_road(file_path + "school/road_info.in");
-
-ifstream info_stu(file_path + "student/student_info.in");
-string file_mkd = file_path + "student/stu_";
-
-ofstream debugout("./debug.out");
-
 void out_dict()
 {
 	for (auto i : buid_dict)
@@ -28,14 +17,27 @@ void out_dict()
 
 void mapinit()
 {
+	ifstream info_schl(file_path + "school/school_info.in");
+	ifstream info_buid(file_path + "school/building_info.in");
+	ifstream info_road(file_path + "school/road_info.in");
+
 	int wid, len;
 
 	info_schl >> wid >> len;
+	if(wid > Width || len > Legth)
+	{
+		debugout << "school info error" << endl;
+		cout << "学校信息错误！" << endl;
+		system("pause");
+		exit(0);
+	}
 	school.set(wid, len);
 
 	info_schl >> num_buid;
 	info_schl >> num_road;
 
+	debugout << "school info read" << endl;
+	info_schl.close();
 	// debugout << num_buid << ' ' << num_road << endl;
 
 	string name;
@@ -54,6 +56,8 @@ void mapinit()
 		school.add(i, buids[i].posi);
 	}
 
+	debugout << "building info read" << endl;
+	info_buid.close();
 	out_dict();
 
 	for (int i = 1; i <= num_road; i++)
@@ -70,6 +74,8 @@ void mapinit()
 		school.add(roads[i].begin, roads[i].end);
 	}
 
+	debugout << "road info read" << endl;
+	info_road.close();
 	school.textout(debugout);
 }
 
@@ -100,16 +106,16 @@ void pointout(deque<Position>&path, int x)
 	cout << endl;
 }
 
-void pathout(Path &res)
+void pathout(Path &res, ostream& xout)
 {
 	for(auto i : res.path)
-		debugout << '(' << i.x << ',' << i.y << ')' << endl;
+		xout << '(' << i.x << ',' << i.y << ')' << endl;
 }
 
 void Go(int a, int b)
 {
 	Path res = school.P2P(buids[a].posi, buids[b].posi);
 	// res.path.push_back(res.now);
-	pathout(res);
+	pathout(res, cout);
 	// pointout(res.path, b);
 }

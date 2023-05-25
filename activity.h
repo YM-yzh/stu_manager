@@ -13,17 +13,17 @@ struct Tome
 
 struct Activity // 学生活动信息
 {
-	int kind; // 2表示考试，1表示课程，0表示活动/临时事务
+	int kind; // 3闹钟，2考试，1课程，0活动，-1临时事务
 	string name; // 活动名称
 
 	Tome tome; // 活动时间
 	int last; // 持续时长
 
-	bool form; // 0表示线下，1表示线上
+	bool form; // 0线下，1线上
 	string loca; // 线下地址或线上网址
 	string room; // 线下教室房间号
 
-	bool frequency; // 1表示单次，0表示每周
+	int freq; // 0单次，1每日，2每周
 
 	void read(istream& ss);
 	void textout(ostream& xout);

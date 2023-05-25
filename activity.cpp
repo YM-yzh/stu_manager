@@ -60,10 +60,12 @@ void Tome::putime(ostream& xout)
 
 void Activity::read(istream& ss)
 {
-	ss >> this->name >> this->tome.day >> this->tome.hour >> this->last >> this->form >> this->loca;
+	ss >> this->name >> this->kind;
+	ss >> this->tome.day >> this->tome.hour >> this->last;
+	ss >> this->form >> this->loca;
 	// if(!this->form)
 		ss >> this->room; // 线下课程输入房间号
-	ss >> this->frequency;
+	ss >> this->freq;
 }
 
 void Activity::textout(ostream& xout)

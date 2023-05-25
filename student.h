@@ -25,13 +25,17 @@ public:
 	bool check(string str);                                         // 检查密码
 
 	void init_lesson(ifstream& ss);
+	void save_lesson(ostream& xout);
+
+	vAiter end();
 	vAiter find_acti(string name);
-	bool find_acti(Activity acti);                                  // 二分查找课程
+
+	bool insert_acti(Activity acti);                                  // 二分查找课程
 	bool change_acti(Activity acti);                                // 修改活动信息
 	bool cancel_acti(string name);                                  // 取消活动
 
-	void add_alarm(string name, Tome tome, int freq);               // 闹钟
-	void add_test(Activity test);                                   // 管理员添加考试
+	bool add_alarm(string name, Tome tome, int freq);               // 闹钟
+	bool add_test(Activity test);                                   // 管理员添加考试
 
 	vAiter getless();                                               // 获取活动数组开头
 	void nextday(int day);
@@ -42,6 +46,7 @@ public:
 	int get_Location();
 
 	void textout(ostream& xout);
+	void save(ostream& xout);
 };
 
 extern int num_stu;
@@ -51,3 +56,4 @@ extern map<string, int, greater<string>> stus_dict;
 bool opins(vAiter tar, Activity acti);
 void actiout(vector<Activity> x);
 void stuinit();
+void stusave();

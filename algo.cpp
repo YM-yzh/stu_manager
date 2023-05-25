@@ -7,7 +7,7 @@ bool operator == (Position a, Position b)
 
 void out_posi(Position a)
 {
-	cout << a.x << ',' << a.y << endl;
+	debugout << a.x << ',' << a.y << endl;
 }
 
 void Graph::set(int wid, int len)

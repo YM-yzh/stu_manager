@@ -10,17 +10,6 @@ extern Road roads[NUM];
 
 extern Graph school;
 
-extern const string file_path;
-
-extern ifstream info_stu;
-extern string file_mkd;
-
-extern ifstream info_schl;
-extern ifstream info_buid;
-extern ifstream info_road;
-
-extern ofstream debugout;
-
 void out_dict();
 void mapinit();
 

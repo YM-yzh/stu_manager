@@ -14,3 +14,13 @@ using namespace std;
 
 #define Width 100
 #define Legth 100
+
+extern bool admin;
+
+extern const string file_path;
+extern const string save_path;
+
+extern string file_mkd;
+extern string save_mkd;
+
+extern ofstream debugout;

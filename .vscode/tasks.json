@@ -12,6 +12,7 @@
                 "${fileDirname}\\algo.cpp",
                 "${fileDirname}\\school.cpp",
                 "${fileDirname}\\student.cpp",
+                "${fileDirname}\\global.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

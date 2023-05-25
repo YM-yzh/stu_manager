@@ -79,6 +79,25 @@ void Student::init_lesson(ifstream& ss)
 	// actiout(this->acti);
 }
 
+void Student::save_lesson(ostream& ss)
+{
+	ss << this->acti_num << endl;
+	for(auto i : this->acti)
+	{
+		ss << i.name << ' ' << i.kind << ' ';
+		ss << i.tome.day << ' ' << i.tome.hour << ' ' << i.last << ' ';
+		ss << i.form << ' ' << i.loca << ' ';
+		// if(!i.form)
+			ss << i.room << ' '; // 线下课程输入房间号
+		ss << i.freq << endl;
+	}
+}
+
+vAiter Student::end()
+{
+	return this->acti.end();
+}
+
 vAiter Student::find_acti(string name)
 {
 	for(vAiter i = this->acti.begin();i!=this->acti.end();i++)
@@ -94,7 +113,7 @@ bool opins(vAiter tar, Activity acti)
 	return (l.tome+l.last) <= (acti.tome) && (acti.tome+acti.last) <= r.tome;
 }
 
-bool Student::find_acti(Activity acti)
+bool Student::insert_acti(Activity acti)
 {
 	vAiter targt;
 	// vAiter targt = lower_bound(this->acti.begin(), this->acti.end(), acti);
@@ -122,18 +141,36 @@ bool Student::change_acti(Activity acti)
 	bool flag = this->cancel_acti(acti.name);
 	if (!flag)
 		return false;
-	flag = this->find_acti(acti); // 为了维护有序序列，先取消原有日程，再添加
+	flag = this->insert_acti(acti); // 为了维护有序序列，先取消原有日程，再添加
 	return flag;
 }
 
 bool Student::cancel_acti(string name)
 {
 	auto targt = this->find_acti(name);
-	if(targt==this->acti.end())
+	if(targt==this->end())
 		return false;
 	this->acti.erase(targt);
 	this->acti_num--;
 	return true;
+}
+
+bool Student::add_alarm(string name, Tome tome, int freq)
+{
+	Activity alarm = {};
+	alarm.kind = 3;
+	alarm.name = name;
+	alarm.tome = tome;
+	alarm.last = 0;
+	alarm.freq = freq;
+	return this->insert_acti(alarm);
+}
+
+bool Student::add_test(Activity test)
+{
+	// if (admin)
+		return this->insert_acti(test);
+	return false;
 }
 
 void Student::textout(ostream& xout)
@@ -145,6 +182,15 @@ void Student::textout(ostream& xout)
 		i.textout(xout);
 }
 
+void Student::save(ostream& xout)
+{
+	xout << this->name << endl;
+	xout << this->id << endl;
+	xout << this->clas << endl;
+	xout << this->pass << endl;
+	xout << this->domi << endl;
+}
+
 void actiout(vector<Activity> x)
 {
 	for(auto i : x)
@@ -153,7 +199,15 @@ void actiout(vector<Activity> x)
 
 void stuinit()
 {
+	ifstream info_stu(file_path + "student/student_info.in");
 	info_stu >> num_stu;
+	if(num_stu > NUM)
+	{
+		debugout << "student info error" << endl;
+		cout << "学生信息错误！" << endl;
+		system("pause");
+		exit(0);
+	}
 
 	string name, pass, domi;
 	string id, clas;
@@ -169,12 +223,44 @@ void stuinit()
 		stus[i].init(ss,name, id, clas, pass, domi);
 		// stus_dict.emplace(id, i);
 		stus_dict.emplace(ss, i);
-
+		debugout << ss << " info read" << endl;
 		info_ss.close();
+
 		info_ss.open(file_mkd + ss + "/lesson.in");
 		stus[i].init_lesson(info_ss);
+		debugout << ss << " lesson read" << endl;
 		info_ss.close();
 
 		stus[i].textout(debugout);
 	}
+	info_stu.close();
+}
+
+void stusave()
+{
+	ifstream info_stu(file_path + "student/student_info.in");
+
+	info_stu >> num_stu;
+
+	string name, pass, domi;
+	string id, clas;
+
+	string ss;
+	ofstream save_ss;
+	for (int i = 1; i <= num_stu; i++)
+	{
+		info_stu >> ss;
+		save_ss.open(save_mkd + ss + "/_info.in");
+
+		Student stu = stus[i];
+		stu.save(save_ss);
+		debugout << ss << " info saved" << endl;
+		save_ss.close();
+
+		save_ss.open(save_mkd + ss + "/lesson.in");
+		stus[i].save_lesson(save_ss);
+		debugout << ss << " lesson saved" << endl;
+		save_ss.close();
+	}
+	info_stu.close();
 }
