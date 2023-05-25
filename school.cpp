@@ -15,6 +15,9 @@ ifstream info_schl(file_path + "school/school_info.in");
 ifstream info_buid(file_path + "school/building_info.in");
 ifstream info_road(file_path + "school/road_info.in");
 
+ifstream info_stu(file_path + "student/student_info.in");
+string file_mkd = file_path + "student/stu_";
+
 ofstream debugout("./debug.out");
 
 void out_dict()

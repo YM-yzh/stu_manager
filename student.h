@@ -3,9 +3,6 @@
 
 typedef vector<Activity>::iterator vAiter;
 
-extern ifstream info_stu;
-extern string file_mkd;
-
 class Student // 学生
 {
 private:

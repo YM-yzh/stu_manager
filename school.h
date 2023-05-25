@@ -12,6 +12,9 @@ extern Graph school;
 
 extern const string file_path;
 
+extern ifstream info_stu;
+extern string file_mkd;
+
 extern ifstream info_schl;
 extern ifstream info_buid;
 extern ifstream info_road;

@@ -1,8 +1,5 @@
 #include "student.h"
 
-ifstream info_stu(file_path + "student/student_info.in");
-string file_mkd = file_path + "student/stu_";
-
 int num_stu = 0;
 Student stus[NUM] = {};
 map<string, int, greater<string>> stus_dict;
