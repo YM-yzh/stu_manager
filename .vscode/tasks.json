@@ -8,6 +8,10 @@
             "args": [
                 "-g",
                 "${file}",
+                "${fileDirname}\\activity.cpp",
+                "${fileDirname}\\algo.cpp",
+                "${fileDirname}\\school.cpp",
+                "${fileDirname}\\student.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

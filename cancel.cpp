@@ -15,7 +15,6 @@ void login()
 	string username = "yzh";
 	int id = stus_dict[username];
 	stu = stus[id];
-
 }
 
 ifstream info_reqs(file_path + "requests.in");
