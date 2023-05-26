@@ -1,5 +1,4 @@
 #include "student.h"
-#include "addmin.h"
 #include <time.h>
 #include <conio.h>
 #include <windows.h>
@@ -29,9 +28,9 @@ bool action(string &str)
 	cout << str << endl;
 	if(str == "save")
 		subsave();
-	if(str == "cancel")
+	if(str == "error")
 	{
-		cout << "canceled" << endl;
+		cout << "error" << endl;
 		return false;
 	}
 	if(str == "find")
@@ -132,8 +131,12 @@ bool action(string &str)
 	}
 	if(str == "cancel")
 	{
-		cout << "canceled" << endl;
-		return false;
+		cout << "kind of acti: ";
+		cin >> str;
+
+		cout << "input acti: " << endl;
+		Activity acti;
+		acti.read(cin);
 	}
 	return true;
 }
