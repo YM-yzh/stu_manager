@@ -14,7 +14,7 @@ void Graph::set(int wid, int len)
 {
 	this->width = wid;
 	this->length = len;
-	memset(this->map, -1, sizeof(this->map));
+	// memset(this->map, -1, sizeof(this->map));
 }
 
 void Graph::add(int id, Position pos)
