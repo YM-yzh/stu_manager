@@ -1,4 +1,5 @@
 #include "student.h"
+#include "addmin.h"
 #include <time.h>
 #include <conio.h>
 #include <windows.h>
@@ -74,58 +75,66 @@ bool action(string &str)
 			cout << "input class: ";
 			string clas;
 			cin >> clas;
-			for(int i=1;i<=num_stu;i++)
-				if(stus[i].get_class()==clas)
-					stus[i].insert_acti(acti);
-			return false;
-		}
-		if(str == "acti")
-		{
-			stu.insert_acti(acti);
-			return false;
-		}
-		if(str == "test")
-		{
-			// if(!admin)
+			string res = add_acti(acti,clas);
+			if(res!="addmin")
+			{
+				cout << "sudent" << res << "error" << endl;
 				return true;
-			cout << "input class: ";
-			string clas;
-			cin >> clas;
-			for(int i=1;i<=num_stu;i++)
-				if(stus[i].get_class()==clas)
-					stus[i].insert_acti(acti);
-			return false;
+			}
 		}
+		else if(str == "acti")
+			stu.insert_acti(acti);
 		else
 		{
 			cout << "wrong" << endl;
 			return true;
 		}
+		cout << "added" << endl;
 		return false;
 	}
 	if(str == "set")
 	{
 		cout << "set alarm: ";
+		return false;
+	}
+	if(str == "change")
+	{
+		cout << "kind of acti: ";
 		cin >> str;
 
 		cout << "input acti: " << endl;
-		Activity x;
-		x.read(cin);
+		Activity acti;
+		acti.read(cin);
 
 		if(str == "test")
 		{
 			// if(!admin)
+				// return true;
+			cout << "input class: ";
+			string clas;
+			cin >> clas;
+			string res = change_acti(acti,clas);
+			if(res!="addmin")
+			{
+				cout << "sudent" << res << "error" << endl;
 				return true;
+			}
 		}
+		else if(str == "acti")
+			stu.change_acti(acti);
 		else
 		{
 			cout << "wrong" << endl;
 			return true;
 		}
+		cout << "changed" << endl;
 		return false;
 	}
-	// change
-	// cancel
+	if(str == "cancel")
+	{
+		cout << "canceled" << endl;
+		return false;
+	}
 	return true;
 }
 
