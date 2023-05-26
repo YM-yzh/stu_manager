@@ -38,7 +38,7 @@ void mapinit()
 
 	debugout << "school info read" << endl;
 	info_schl.close();
-	// debugout << num_buid << ' ' << num_road << endl;
+	debugout << num_buid << ' ' << num_road << endl;
 
 	string name;
 
@@ -114,6 +114,7 @@ void pathout(Path &res, ostream &xout)
 
 void Go(int a, int b)
 {
+	debugout << buids[a].name << " -> " << buids[b].name << endl;
 	Path res = school.P2P(buids[a].posi, buids[b].posi);
 	// res.path.push_back(res.now);
 	pathout(res, cout);

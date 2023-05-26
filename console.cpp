@@ -228,7 +228,7 @@ void timestart()
 	while (true)
 	{
 		Tome now = {7, 22};
-		auto atci = stu.getless();
+		auto atci = stu.begin();
 		for (int i = 1; i <= 7; i++)
 		{
 			// loop(atci, now);

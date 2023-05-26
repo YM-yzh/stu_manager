@@ -21,7 +21,7 @@ bool Student::check(string str)
 	return str == this->pass;
 }
 
-vAiter Student::getless()
+vAiter Student::begin()
 {
 	return this->acti.begin();
 }
