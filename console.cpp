@@ -47,7 +47,7 @@ bool action(string &str)
 		{
 			int x;
 			cin >> x;
-			auto res = stu.find_kind(x);
+			auto res = stu.find_acti(x);
 			for(auto i : res)
 				i.textout(cout);
 		}

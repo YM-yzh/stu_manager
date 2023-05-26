@@ -78,7 +78,7 @@ void Student::init_lesson(ifstream& ss)
 	{
 		x.read(ss);
 		this->acti.push_back(x);
-		this->acti_dict.emplace(x.name, i-1);
+		// this->acti_dict.emplace(x.name, i-1);
 	}
 	sort(this->acti.begin(), this->acti.end());
 	// actiout(this->acti);
@@ -103,13 +103,20 @@ vAiter Student::end()
 	return this->acti.end();
 }
 
-vA Student::find_kind(int kind)
+vA Student::find_acti(int kind)
 {
 	vA res = {};
 	for(auto i : this->acti)
 		if(i.kind == kind)
 			res.push_back(i);
 	return res;
+}
+
+vAiter Student::find_acti(Tome tome)
+{
+	Activity x = {};
+	x.tome = tome;
+	return this->find_acti(x);
 }
 
 vAiter Student::find_acti(string name)
@@ -127,9 +134,8 @@ bool opins(vAiter tar, Activity acti)
 	return (l.tome+l.last) <= (acti.tome) && (acti.tome+acti.last) <= r.tome;
 }
 
-bool Student::insert_acti(Activity acti)
+vAiter Student::find_acti(Activity acti)
 {
-	vAiter targt;
 	// vAiter targt = lower_bound(this->acti.begin(), this->acti.end(), acti);
 	int left = 0;
 	int right = this->acti_num - 1;
@@ -142,7 +148,12 @@ bool Student::insert_acti(Activity acti)
 		else
 			right = mid-1;
 	}
-	targt = this->acti.begin() + left - 1;
+	return this->acti.begin() + left - 1;
+}
+
+bool Student::insert_acti(Activity acti)
+{
+	auto targt = this->find_acti(acti);
 	if(!opins(targt, acti))
 		return false;
 	this->acti.insert(targt+1, acti);

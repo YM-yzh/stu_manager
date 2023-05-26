@@ -19,7 +19,7 @@ private:
 
 	int acti_num;
 	vA acti;
-	maps acti_dict;
+	// maps acti_dict;
 
 public:
 	void init(string user, string name, string id, string clas, string pass, string domi);
@@ -29,8 +29,10 @@ public:
 	void save_lesson(ostream& xout);
 
 	vAiter end();
+	vAiter find_acti(Activity acti);                                  // 二分查找课程
 	vAiter find_acti(string name);
-	vA find_kind(int kind);
+	vAiter find_acti(Tome tome);
+	vA find_acti(int kind);
 
 	bool insert_acti(Activity acti);                                  // 二分查找课程
 	bool change_acti(Activity acti);                                // 修改活动信息
