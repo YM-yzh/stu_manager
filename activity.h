@@ -26,11 +26,13 @@ struct Activity // 学生活动信息
 	int freq; // 0单次，1每日，2每周
 
 	void read(istream& ss);
+	void write(ostream& ss);
 	string textshow();
 	void textout(ostream& xout);
 };
 
-bool cmp(Tome a, Tome b);
+bool operator < (Tome a, Tome b);
+bool operator == (Tome a, Tome b);
 bool operator <= (Tome a, Tome b);
 Tome operator + (Tome a, int b);
 

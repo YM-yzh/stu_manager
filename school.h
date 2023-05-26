@@ -13,6 +13,6 @@ extern Graph school;
 void out_dict();
 void mapinit();
 
-void pointout(deque<Position>&path, int x);
+void pointout(deque<Position> &path, int x);
 void pathout(Path &res);
 void Go(int a, int b);

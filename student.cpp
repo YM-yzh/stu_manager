@@ -38,13 +38,13 @@ string Student::get_class()
 
 void Student::nextday(int day)
 {
-	day = day%7 + 1;
+	day = day % 7 + 1;
 	cout << "星期" << week[day] << endl;
-	for(auto i : this->acti)
+	for (auto i : this->acti)
 	{
-		if(i.tome.day < day)
+		if (i.tome.day < day)
 			continue;
-		if(i.tome.day > day)
+		if (i.tome.day > day)
 			break;
 		cout << setw(2) << setfill(' ') << i.tome.hour << "点 ~ ";
 		cout << setw(2) << setfill(' ') << i.tome.hour + i.last << "点 ";
@@ -52,7 +52,7 @@ void Student::nextday(int day)
 	}
 }
 
-void Student::move(string& loca)
+void Student::move(string &loca)
 {
 	int aid = this->now;
 	int bid = buid_dict[loca];
@@ -70,13 +70,19 @@ int Student::get_Location()
 	return this->now;
 }
 
-void Student::init_lesson(ifstream& ss)
+void Student::init_activity(ifstream &less, ifstream &acti)
 {
-	ss >> this->acti_num;
+	// ss >> this->acti_num;
 	Activity x;
-	for(int i=1;i<=acti_num;i++)
+	for (int i = 1; i <= less_num; i++)
 	{
-		x.read(ss);
+		x.read(less);
+		this->acti.push_back(x);
+		// this->acti_dict.emplace(x.name, i-1);
+	}
+	for (int i = 1; i <= acti_num; i++)
+	{
+		x.read(acti);
 		this->acti.push_back(x);
 		// this->acti_dict.emplace(x.name, i-1);
 	}
@@ -84,18 +90,33 @@ void Student::init_lesson(ifstream& ss)
 	// actiout(this->acti);
 }
 
-void Student::save_lesson(ostream& ss)
+void Student::save_activity(ostream &less, ostream &acti)
 {
-	ss << this->acti_num << endl;
-	for(auto i : this->acti)
+	less << this->less_num << endl;
+	acti << this->acti_num - this->less_num << endl;
+	for (auto i : this->acti)
 	{
-		ss << i.name << ' ' << i.kind << ' ';
-		ss << i.tome.day << ' ' << i.tome.hour << ' ' << i.last << ' ';
-		ss << i.form << ' ' << i.loca << ' ';
-		// if(!i.form)
-			ss << i.room << ' '; // 线下课程输入房间号
-		ss << i.freq << endl;
+		if (i.kind > 3)
+			i.write(less);
+		if (i.kind < 3)
+			i.write(acti);
 	}
+}
+
+void Student::nless(int num)
+{
+	this->less_num = num;
+}
+
+void Student::nacti(int num)
+{
+	this->acti_num = num;
+}
+
+void Student::merge()
+{
+	this->acti_num += this->less_num;
+	;
 }
 
 vAiter Student::end()
@@ -106,8 +127,8 @@ vAiter Student::end()
 vA Student::find_acti(int kind)
 {
 	vA res = {};
-	for(auto i : this->acti)
-		if(i.kind == kind)
+	for (auto i : this->acti)
+		if (i.kind == kind)
 			res.push_back(i);
 	return res;
 }
@@ -116,13 +137,16 @@ vAiter Student::find_acti(Tome tome)
 {
 	Activity x = {};
 	x.tome = tome;
-	return this->find_acti(x);
+	auto res = this->find_acti(x);
+	if (res->tome == tome)
+		return res;
+	return this->end();
 }
 
 vAiter Student::find_acti(string name)
 {
-	for(vAiter i = this->acti.begin();i!=this->acti.end();i++)
-		if(i->name == name)
+	for (vAiter i = this->acti.begin(); i != this->acti.end(); i++)
+		if (i->name == name)
 			return i;
 	return this->acti.end();
 }
@@ -130,8 +154,8 @@ vAiter Student::find_acti(string name)
 bool opins(vAiter tar, Activity acti)
 {
 	Activity l = *tar;
-	Activity r = *(tar+1);
-	return (l.tome+l.last) <= (acti.tome) && (acti.tome+acti.last) <= r.tome;
+	Activity r = *(tar + 1);
+	return (l.tome + l.last) <= (acti.tome) && (acti.tome + acti.last) <= r.tome;
 }
 
 vAiter Student::find_acti(Activity acti)
@@ -139,14 +163,14 @@ vAiter Student::find_acti(Activity acti)
 	// vAiter targt = lower_bound(this->acti.begin(), this->acti.end(), acti);
 	int left = 0;
 	int right = this->acti_num - 1;
-	while(left <= right)
+	while (left <= right)
 	{
 		int mid = (left + right) / 2;
-		vAiter now = this->acti.begin()	+ mid;
+		vAiter now = this->acti.begin() + mid;
 		if ((*now) <= acti)
-			left = mid+1;
+			left = mid + 1;
 		else
-			right = mid-1;
+			right = mid - 1;
 	}
 	return this->acti.begin() + left - 1;
 }
@@ -154,9 +178,9 @@ vAiter Student::find_acti(Activity acti)
 bool Student::insert_acti(Activity acti)
 {
 	auto targt = this->find_acti(acti);
-	if(!opins(targt, acti))
+	if (!opins(targt, acti))
 		return false;
-	this->acti.insert(targt+1, acti);
+	this->acti.insert(targt + 1, acti);
 	this->acti_num++;
 	return true;
 }
@@ -173,7 +197,7 @@ bool Student::change_acti(Activity acti)
 bool Student::cancel_acti(string name)
 {
 	auto targt = this->find_acti(name);
-	if(targt==this->end())
+	if (targt == this->end())
 		return false;
 	this->acti.erase(targt);
 	this->acti_num--;
@@ -191,16 +215,16 @@ bool Student::add_alarm(string name, Tome tome, int freq)
 	return this->insert_acti(alarm);
 }
 
-void Student::textout(ostream& xout)
+void Student::textout(ostream &xout)
 {
 	xout << this->user << endl;
 	xout << this->name << ' ' << this->id << ' ' << this->pass << ' ' << this->domi << endl;
 	xout << this->acti_num << endl;
-	for(auto i : this->acti)
+	for (auto i : this->acti)
 		i.textout(xout);
 }
 
-void Student::save(ostream& xout)
+void Student::save(ostream &xout)
 {
 	xout << this->name << endl;
 	xout << this->id << endl;
@@ -211,7 +235,7 @@ void Student::save(ostream& xout)
 
 void actiout(vector<Activity> x)
 {
-	for(auto i : x)
+	for (auto i : x)
 		debugout << i.name << endl;
 }
 
@@ -219,7 +243,7 @@ void stuinit()
 {
 	ifstream info_stu(file_path + "student/student_info.in");
 	info_stu >> num_stu;
-	if(num_stu > NUM)
+	if (num_stu > NUM)
 	{
 		debugout << "student info error" << endl;
 		cout << "学生信息错误！" << endl;
@@ -232,23 +256,36 @@ void stuinit()
 
 	string ss;
 	ifstream info_ss;
+	ifstream info_less, info_acti;
+	int num;
 	for (int i = 1; i <= num_stu; i++)
 	{
 		info_stu >> ss;
 		info_ss.open(file_mkd + ss + "/_info.in");
 
 		info_ss >> name >> id >> clas >> pass >> domi;
-		stus[i].init(ss,name, id, clas, pass, domi);
+		stus[i].init(ss, name, id, clas, pass, domi);
 		// stus_dict.emplace(id, i);
 		stus_dict.emplace(ss, i);
 		debugout << ss << " info read" << endl;
 		info_ss.close();
 
-		info_ss.open(file_mkd + ss + "/lesson.in");
-		stus[i].init_lesson(info_ss);
-		debugout << ss << " lesson read" << endl;
-		info_ss.close();
+		info_less.open(file_mkd + ss + "/lesson.in");
+		info_acti.open(file_mkd + ss + "/activity.in");
 
+		info_less >> num;
+		stus[i].nless(num);
+		info_acti >> num;
+		stus[i].nacti(num);
+
+		stus[i].init_activity(info_less, info_acti);
+
+		debugout << ss << " lesson read" << endl;
+		debugout << ss << " activity read" << endl;
+		info_less.close();
+		info_acti.close();
+
+		stus[i].merge();
 		stus[i].textout(debugout);
 	}
 	info_stu.close();
@@ -265,6 +302,7 @@ void stusave()
 
 	string ss;
 	ofstream save_ss;
+	ofstream save_less, save_acti;
 	for (int i = 1; i <= num_stu; i++)
 	{
 		info_stu >> ss;
@@ -275,10 +313,15 @@ void stusave()
 		debugout << ss << " info saved" << endl;
 		save_ss.close();
 
-		save_ss.open(save_mkd + ss + "/lesson.in");
-		stus[i].save_lesson(save_ss);
+		save_less.open(save_mkd + ss + "/lesson.in");
+		save_acti.open(save_mkd + ss + "/activity.in");
+
+		stus[i].save_activity(save_less, save_acti);
+
 		debugout << ss << " lesson saved" << endl;
-		save_ss.close();
+		debugout << ss << " activity saved" << endl;
+		save_less.close();
+		save_acti.close();
 	}
 	info_stu.close();
 }
@@ -287,12 +330,12 @@ void stusave()
 
 string add_acti(Activity acti, string clas)
 {
-	for(int i=1;i<=num_stu;i++)
+	for (int i = 1; i <= num_stu; i++)
 	{
-		if(stus[i].get_class() == clas)
+		if (stus[i].get_class() == clas)
 		{
 			bool op = stus[i].insert_acti(acti);
-			if(!op)
+			if (!op)
 				return stus[i].get_name();
 		}
 	}
@@ -301,12 +344,12 @@ string add_acti(Activity acti, string clas)
 
 string change_acti(Activity acti, string clas)
 {
-	for(int i=1;i<=num_stu;i++)
+	for (int i = 1; i <= num_stu; i++)
 	{
-		if(stus[i].get_class() == clas)
+		if (stus[i].get_class() == clas)
 		{
 			bool op = stus[i].change_acti(acti);
-			if(!op)
+			if (!op)
 				return stus[i].get_name();
 		}
 	}
@@ -315,8 +358,8 @@ string change_acti(Activity acti, string clas)
 
 string cancel_acti(string name, string clas)
 {
-	for(int i=1;i<=num_stu;i++)
-		if(stus[i].get_class() == clas)
+	for (int i = 1; i <= num_stu; i++)
+		if (stus[i].get_class() == clas)
 			stus[i].cancel_acti(name);
 	return "addmin";
 }

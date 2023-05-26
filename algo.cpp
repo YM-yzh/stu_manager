@@ -1,6 +1,6 @@
 #include "algo.h"
 
-bool operator == (Position a, Position b)
+bool operator==(Position a, Position b)
 {
 	return (a.x == b.x) && (a.y == b.y);
 }
@@ -41,7 +41,7 @@ int Graph::getpoint(int x, int y)
 }
 
 const int X[4] = {-1, 1, 0, 0};
-const int Y[4] = { 0, 0, 1,-1};
+const int Y[4] = {0, 0, 1, -1};
 
 Path Graph::P2P(Position start, Position desti)
 {
@@ -54,23 +54,23 @@ Path Graph::P2P(Position start, Position desti)
 
 bool Graph::DFS(Position start, Position desti)
 {
-	if(start.x <= 0 || start.x >= this->width || start.y <= 0 || start.y >= this->length)
+	if (start.x <= 0 || start.x >= this->width || start.y <= 0 || start.y >= this->length)
 		return false;
-	if(this->vis[start.x][start.y] || this->map[start.x][start.y]==-1)
+	if (this->vis[start.x][start.y] || this->map[start.x][start.y] == -1)
 		return false;
-	this->vis[start.x][start.y]=true;
-	if(start == desti)
+	this->vis[start.x][start.y] = true;
+	if (start == desti)
 	{
 		this->path.push_front(start);
 		return true;
 	}
-	for(int i=0;i<4;i++)
+	for (int i = 0; i < 4; i++)
 	{
 		Position now;
-		now.x=start.x+X[i];
-		now.y=start.y+Y[i];
+		now.x = start.x + X[i];
+		now.y = start.y + Y[i];
 		bool flag = this->DFS(now, desti);
-		if(flag)
+		if (flag)
 		{
 			this->path.push_front(start);
 			return true;

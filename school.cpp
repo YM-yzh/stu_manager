@@ -24,7 +24,7 @@ void mapinit()
 	int wid, len;
 
 	info_schl >> wid >> len;
-	if(wid > Width || len > Legth)
+	if (wid > Width || len > Legth)
 	{
 		debugout << "school info error" << endl;
 		cout << "学校信息错误！" << endl;
@@ -79,7 +79,7 @@ void mapinit()
 	school.textout(debugout);
 }
 
-void Graph::textout(ostream& xout)
+void Graph::textout(ostream &xout)
 {
 	int wid = this->width;
 	int len = this->length;
@@ -91,24 +91,24 @@ void Graph::textout(ostream& xout)
 	}
 }
 
-void pointout(deque<Position>&path, int x)
+void pointout(deque<Position> &path, int x)
 {
-	for(auto i : path)
+	for (auto i : path)
 	{
 		int t = school.getpoint(i.x, i.y);
-		if(t > 0)
+		if (t > 0)
 		{
 			cout << buids[t].name;
-			if(t != x)
+			if (t != x)
 				cout << "->";
 		}
 	}
 	cout << endl;
 }
 
-void pathout(Path &res, ostream& xout)
+void pathout(Path &res, ostream &xout)
 {
-	for(auto i : res.path)
+	for (auto i : res.path)
 		xout << '(' << i.x << ',' << i.y << ')' << endl;
 }
 

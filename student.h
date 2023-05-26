@@ -17,6 +17,7 @@ private:
 	string domi;
 	int now;
 
+	int less_num;
 	int acti_num;
 	vA acti;
 	// maps acti_dict;
@@ -25,8 +26,11 @@ public:
 	void init(string user, string name, string id, string clas, string pass, string domi);
 	bool check(string str);                                         // 检查密码
 
-	void init_lesson(ifstream& ss);
-	void save_lesson(ostream& xout);
+	void init_activity(ifstream& less, ifstream& acti);
+	void save_activity(ostream& less, ostream& acti);
+	void nless(int num);
+	void nacti(int num);
+	void merge();
 
 	vAiter end();
 	vAiter find_acti(Activity acti);                                  // 二分查找课程
