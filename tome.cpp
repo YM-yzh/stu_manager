@@ -28,6 +28,104 @@ bool action(string &str)
 	cout << str << endl;
 	if(str == "save")
 		subsave();
+	if(str == "cancel")
+	{
+		cout << "canceled" << endl;
+		return false;
+	}
+	if(str == "find")
+	{
+		cout << "kind of find: ";
+		cin >> str;
+		if(str == "name")
+		{
+			cin >> str;
+			auto res = stu.find_acti(str);
+			res->textout(cout);
+		}
+		else if(str == "kind")
+		{
+			int x;
+			cin >> x;
+			auto res = stu.find_kind(x);
+			for(auto i : res)
+				i.textout(cout);
+		}
+		else
+		{
+			cout << "wrong" << endl;
+			return true;
+		}
+		return false;
+	}
+	if(str == "add")
+	{
+		cout << "kind of acti: ";
+		cin >> str;
+
+		cout << "input acti: " << endl;
+		Activity acti;
+		acti.read(cin);
+
+		if(str == "test")
+		{
+			// if(!admin)
+				// return true;
+			cout << "input class: ";
+			string clas;
+			cin >> clas;
+			for(int i=1;i<=num_stu;i++)
+				if(stus[i].get_class()==clas)
+					stus[i].insert_acti(acti);
+			return false;
+		}
+		if(str == "acti")
+		{
+			stu.insert_acti(acti);
+			return false;
+		}
+		if(str == "test")
+		{
+			// if(!admin)
+				return true;
+			cout << "input class: ";
+			string clas;
+			cin >> clas;
+			for(int i=1;i<=num_stu;i++)
+				if(stus[i].get_class()==clas)
+					stus[i].insert_acti(acti);
+			return false;
+		}
+		else
+		{
+			cout << "wrong" << endl;
+			return true;
+		}
+		return false;
+	}
+	if(str == "set")
+	{
+		cout << "set alarm: ";
+		cin >> str;
+
+		cout << "input acti: " << endl;
+		Activity x;
+		x.read(cin);
+
+		if(str == "test")
+		{
+			// if(!admin)
+				return true;
+		}
+		else
+		{
+			cout << "wrong" << endl;
+			return true;
+		}
+		return false;
+	}
+	// change
+	// cancel
 	return true;
 }
 
@@ -96,12 +194,12 @@ void timestart()
 
 			for(int i=1;i<=24;i++)
 			{
-				if(kbhit())
+				if(kbhit()) // 检测键盘输入
 				{
-					cout << "check!" << endl;
 					bool op = true;
 					while(op)
 					{
+						cout << "check!" << endl;
 						string order;
 						cin >> order;
 						op = action(order);

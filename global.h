@@ -17,7 +17,7 @@ using namespace std;
 
 typedef map<string, int, greater<string>> maps;
 
-extern bool admin;
+// extern bool admin;
 
 extern const string file_path;
 extern const string save_path;
