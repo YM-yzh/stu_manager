@@ -26,7 +26,7 @@ struct Activity // 学生活动信息
 	int freq; // 0单次，1每日，2每周
 
 	int temp_num;
-	string temp_name[NUM]; // 临时事务可以同时完成
+	string temp_name[5]; // 临时事务可以同时完成
 
 	void read(istream& ss);
 	void write(ostream& ss);
