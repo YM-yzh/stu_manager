@@ -15,6 +15,8 @@ using namespace std;
 #define Width 100
 #define Legth 100
 
+typedef map<string, int, greater<string>> maps;
+
 extern bool admin;
 
 extern const string file_path;

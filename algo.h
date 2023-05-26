@@ -41,6 +41,14 @@ struct Path
 	deque<Position> path;
 };
 
+// void pp(Path a)
+// {
+// 	for(auto i : a.path)
+// 	{
+// 		i.x,i.y;
+// 	}
+// }
+
 const Path ERR = {(Position){-1, -1}};
 
 class Graph

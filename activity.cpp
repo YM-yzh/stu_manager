@@ -72,5 +72,14 @@ void Activity::textout(ostream& xout)
 {
 	xout << setw(2) << setfill(' ') << this->tome.hour << "点 ~ ";
 	xout << setw(2) << setfill(' ') << this->tome.hour + this->last << "点 ";
-	xout << this->loca << ' ' << this->room << this->name << endl;
+	xout << this->loca << ' ' << this->room << ' ' << this->name << endl;
+}
+
+string Activity::textshow()
+{
+	string str = "";
+	str += (char)('0' + this->tome.hour) + "点 ~ ";
+	str += (char)('0' + this->tome.hour + this->last) + "点 ";
+	str += this->loca + ' ' + this->room + ' ' + this->name;
+	return str;
 }

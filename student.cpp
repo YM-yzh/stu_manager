@@ -2,7 +2,7 @@
 
 int num_stu = 0;
 Student stus[NUM] = {};
-map<string, int, greater<string>> stus_dict;
+maps stus_dict;
 
 void Student::init(string user, string name, string id, string clas, string pass, string domi)
 {
@@ -24,6 +24,11 @@ bool Student::check(string str)
 vAiter Student::getless()
 {
 	return this->acti.begin();
+}
+
+string Student::get_name()
+{
+	return this->name;
 }
 
 string Student::get_class()
@@ -98,6 +103,15 @@ vAiter Student::end()
 	return this->acti.end();
 }
 
+vA Student::find_kind(int kind)
+{
+	vA res = {};
+	for(auto i : this->acti)
+		if(i.kind == kind)
+			res.push_back(i);
+	return res;
+}
+
 vAiter Student::find_acti(string name)
 {
 	for(vAiter i = this->acti.begin();i!=this->acti.end();i++)
@@ -164,13 +178,6 @@ bool Student::add_alarm(string name, Tome tome, int freq)
 	alarm.last = 0;
 	alarm.freq = freq;
 	return this->insert_acti(alarm);
-}
-
-bool Student::add_test(Activity test)
-{
-	// if (admin)
-		return this->insert_acti(test);
-	return false;
 }
 
 void Student::textout(ostream& xout)

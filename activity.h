@@ -13,7 +13,7 @@ struct Tome
 
 struct Activity // 学生活动信息
 {
-	int kind; // 3闹钟，2考试，1课程，0活动，-1临时事务
+	int kind; // 5闹钟，4考试，3课程，2活动，1临时事务
 	string name; // 活动名称
 
 	Tome tome; // 活动时间
@@ -26,6 +26,7 @@ struct Activity // 学生活动信息
 	int freq; // 0单次，1每日，2每周
 
 	void read(istream& ss);
+	string textshow();
 	void textout(ostream& xout);
 };
 

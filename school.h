@@ -3,7 +3,7 @@
 
 extern int num_buid;
 extern Building buids[NUM];
-extern map<string, int, greater<string>> buid_dict;
+extern maps buid_dict;
 
 extern int num_road;
 extern Road roads[NUM];

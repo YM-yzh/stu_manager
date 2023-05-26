@@ -28,8 +28,7 @@ bool action(string &str)
 	cout << str << endl;
 	if(str == "save")
 		subsave();
-	cout << "check!" << endl;
-	return false;
+	return true;
 }
 
 int login()
@@ -99,6 +98,7 @@ void timestart()
 			{
 				if(kbhit())
 				{
+					cout << "check!" << endl;
 					bool op = true;
 					while(op)
 					{

@@ -2,7 +2,7 @@
 
 int num_buid = 0;
 Building buids[NUM] = {};
-map<string, int, greater<string>> buid_dict;
+maps buid_dict;
 
 int num_road = 0;
 Road roads[NUM] = {};
