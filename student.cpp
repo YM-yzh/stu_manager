@@ -302,4 +302,12 @@ string change_acti(Activity acti, string clas)
 	return "addmin";
 }
 
+string cancel_acti(string name, string clas)
+{
+	for(int i=1;i<=num_stu;i++)
+		if(stus[i].get_class() == clas)
+			stus[i].cancel_acti(name);
+	return "addmin";
+}
+
 // #endif

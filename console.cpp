@@ -70,7 +70,10 @@ bool action(string &str)
 		if(str == "test")
 		{
 			// if(!admin)
-				// return true;
+			// {
+			// 	cout << "permission denied" << endl;
+			// 	return true;
+			// }
 			cout << "input class: ";
 			string clas;
 			cin >> clas;
@@ -108,7 +111,10 @@ bool action(string &str)
 		if(str == "test")
 		{
 			// if(!admin)
-				// return true;
+			// {
+			// 	cout << "permission denied" << endl;
+			// 	return true;
+			// }
 			cout << "input class: ";
 			string clas;
 			cin >> clas;
@@ -134,9 +140,36 @@ bool action(string &str)
 		cout << "kind of acti: ";
 		cin >> str;
 
-		cout << "input acti: " << endl;
-		Activity acti;
-		acti.read(cin);
+		cout << "input acti name: " << endl;
+		string ssr;
+		cin >> ssr;
+
+		if(str == "test")
+		{
+			// if(!admin)
+			// {
+			// 	cout << "permission denied" << endl;
+			// 	return true;
+			// }
+			cout << "input class: ";
+			string clas;
+			cin >> clas;
+			string res = cancel_acti(ssr,clas);
+			if(res!="addmin")
+			{
+				cout << "sudent" << res << "error" << endl;
+				return true;
+			}
+		}
+		else if(str == "acti")
+			stu.cancel_acti(ssr);
+		else
+		{
+			cout << "wrong" << endl;
+			return true;
+		}
+		cout << "canceled" << endl;
+		return false;
 	}
 	return true;
 }
