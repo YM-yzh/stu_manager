@@ -11,6 +11,13 @@ struct Tome
 	void putime(ostream& xout);
 };
 
+struct Temp
+{
+	Tome tome;
+	int temp_num;
+	struct {string name, loca;} temp_acti[5]; // 临时事务可以同时完成
+};
+
 struct Activity // 学生活动信息
 {
 	int kind; // 5考试，4课程，3闹钟，2活动，1临时事务
@@ -24,9 +31,6 @@ struct Activity // 学生活动信息
 	string room; // 线下教室房间号
 
 	int freq; // 0单次，1每日，2每周
-
-	int temp_num;
-	struct {string name, loca;} temp_acti[5]; // 临时事务可以同时完成
 
 	void read(istream& ss);
 	void write(ostream& ss);
