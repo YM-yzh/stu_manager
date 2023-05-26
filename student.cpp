@@ -1,7 +1,5 @@
 #include "student.h"
 
-Student stu = {};
-
 int num_stu = 0;
 Student stus[NUM] = {};
 maps stus_dict;

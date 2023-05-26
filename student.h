@@ -58,8 +58,6 @@ public:
 	void save(ostream& xout);
 };
 
-extern Student stu;
-
 extern int num_stu;
 extern Student stus[NUM];
 extern maps stus_dict;

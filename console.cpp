@@ -5,6 +5,8 @@
 
 const double interval = 0.5;
 
+Student stu;
+
 void refresh(int tim)
 {
 	Sleep(1000 * interval * tim);
