@@ -38,6 +38,9 @@ struct Activity // 学生活动信息
 	void textout(ostream& xout);
 };
 
+typedef vector<Activity> vA;
+typedef vector<Activity>::iterator vAiter;
+
 bool operator < (Tome a, Tome b);
 bool operator == (Tome a, Tome b);
 bool operator <= (Tome a, Tome b);

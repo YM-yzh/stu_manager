@@ -1,9 +1,6 @@
 #include "global.h"
 #include "activity.h"
 
-typedef vector<Activity> vA;
-typedef vector<Activity>::iterator vAiter;
-
 class Student // 学生
 {
 private:
