@@ -63,3 +63,4 @@ void stusave();
 
 string add_acti(Activity acti, string clas);
 string change_acti(Activity acti, string clas);
+string cancel_acti(string name, string clas);

@@ -13,7 +13,7 @@ struct Tome
 
 struct Activity // 学生活动信息
 {
-	int kind; // 5闹钟，4考试，3课程，2活动，1临时事务
+	int kind; // 5考试，4课程，3闹钟，2活动，1临时事务
 	string name; // 活动名称
 
 	Tome tome; // 活动时间
