@@ -62,7 +62,7 @@ void Student::move(string &loca)
 
 void Student::rest()
 {
-	this->now = buid_dict[this->domi];
+	this->move(this->domi);
 }
 
 int Student::get_Location()
@@ -116,7 +116,6 @@ void Student::nacti(int num)
 void Student::merge()
 {
 	this->acti_num += this->less_num;
-	;
 }
 
 vAiter Student::end()
@@ -204,11 +203,12 @@ bool Student::cancel_acti(string name)
 	return true;
 }
 
-bool Student::add_alarm(string name, Tome tome, int freq)
+bool Student::add_alarm(Activity acti, Tome tome, int freq)
 {
-	Activity alarm = {};
+	Activity alarm = acti;
 	alarm.kind = 3;
-	alarm.name = name;
+	alarm.name = "闹钟" + name;
+	alarm.that = alarm.tome;
 	alarm.tome = tome;
 	alarm.last = 0;
 	alarm.freq = freq;

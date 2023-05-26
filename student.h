@@ -41,7 +41,7 @@ public:
 	bool change_acti(Activity acti);                                // 修改活动信息
 	bool cancel_acti(string name);                                  // 取消活动
 
-	bool add_alarm(string name, Tome tome, int freq);               // 闹钟
+	bool add_alarm(Activity acti, Tome tome, int freq);               // 闹钟
 
 	void nextday(int day);
 	void move(string& loca);

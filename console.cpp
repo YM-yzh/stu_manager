@@ -3,13 +3,18 @@
 #include <conio.h>
 #include <windows.h>
 
-const double interval = 0.5;
+// #define ADMIN "da"
+// #define PASS "488283"
+
+// bool admin = false;
+
+double interval = 2.0;
 
 Student stu;
 
 void refresh(int tim)
 {
-	Sleep(1000 * interval * tim);
+	Sleep(1000 / interval * tim);
 	system("cls");
 	cout << "---- 学生日程管理系统 v1.0 ----" << endl;
 }
@@ -26,36 +31,42 @@ void subsave()
 bool action(string &str)
 {
 	cout << str << endl;
-	if(str == "save")
+	if (str == "save")
 		subsave();
-	if(str == "error")
+	if (str == "set")
+	{
+		cout << "set speed: ";
+		cin >> interval;
+		return false;
+	}
+	if (str == "error")
 	{
 		cout << "error" << endl;
 		return false;
 	}
-	if(str == "find")
+	if (str == "find")
 	{
 		cout << "kind of find: ";
 		cin >> str;
-		if(str == "name")
+		if (str == "name")
 		{
 			cin >> str;
 			auto res = stu.find_acti(str);
 			res->textout(cout);
 		}
-		if(str == "tome")
+		if (str == "tome")
 		{
 			Tome tome;
 			cin >> tome.day >> tome.hour;
 			auto res = stu.find_acti(tome);
 			res->textout(cout);
 		}
-		else if(str == "kind")
+		else if (str == "kind")
 		{
 			int x;
 			cin >> x;
 			auto res = stu.find_acti(x);
-			for(auto i : res)
+			for (auto i : res)
 				i.textout(cout);
 		}
 		else
@@ -65,7 +76,7 @@ bool action(string &str)
 		}
 		return false;
 	}
-	if(str == "add")
+	if (str == "add")
 	{
 		cout << "kind of acti: ";
 		cin >> str;
@@ -74,7 +85,7 @@ bool action(string &str)
 		Activity acti;
 		acti.read(cin);
 
-		if(str == "test")
+		if (str == "test")
 		{
 			// if(!admin)
 			// {
@@ -84,14 +95,14 @@ bool action(string &str)
 			cout << "input class: ";
 			string clas;
 			cin >> clas;
-			string res = add_acti(acti,clas);
-			if(res!="addmin")
+			string res = add_acti(acti, clas);
+			if (res != "addmin")
 			{
 				cout << "sudent" << res << "error" << endl;
 				return true;
 			}
 		}
-		else if(str == "acti")
+		else if (str == "acti")
 			stu.insert_acti(acti);
 		else
 		{
@@ -101,12 +112,22 @@ bool action(string &str)
 		cout << "added" << endl;
 		return false;
 	}
-	if(str == "set")
+	if (str == "set")
 	{
+		cout << "input acti: " << endl;
+		Activity acti;
+		acti.read(cin);
+
 		cout << "set alarm: ";
+		Tome alarm;
+		int freq;
+		cin >> alarm.day >> alarm.hour;
+		cin >> freq;
+
+		stu.add_alarm(acti, alarm, freq);
 		return false;
 	}
-	if(str == "change")
+	if (str == "change")
 	{
 		cout << "kind of acti: ";
 		cin >> str;
@@ -115,7 +136,7 @@ bool action(string &str)
 		Activity acti;
 		acti.read(cin);
 
-		if(str == "test")
+		if (str == "test")
 		{
 			// if(!admin)
 			// {
@@ -125,14 +146,14 @@ bool action(string &str)
 			cout << "input class: ";
 			string clas;
 			cin >> clas;
-			string res = change_acti(acti,clas);
-			if(res!="addmin")
+			string res = change_acti(acti, clas);
+			if (res != "addmin")
 			{
 				cout << "sudent" << res << "error" << endl;
 				return true;
 			}
 		}
-		else if(str == "acti")
+		else if (str == "acti")
 			stu.change_acti(acti);
 		else
 		{
@@ -142,7 +163,7 @@ bool action(string &str)
 		cout << "changed" << endl;
 		return false;
 	}
-	if(str == "cancel")
+	if (str == "cancel")
 	{
 		cout << "kind of acti: ";
 		cin >> str;
@@ -151,7 +172,7 @@ bool action(string &str)
 		string ssr;
 		cin >> ssr;
 
-		if(str == "test")
+		if (str == "test")
 		{
 			// if(!admin)
 			// {
@@ -161,14 +182,14 @@ bool action(string &str)
 			cout << "input class: ";
 			string clas;
 			cin >> clas;
-			string res = cancel_acti(ssr,clas);
-			if(res!="addmin")
+			string res = cancel_acti(ssr, clas);
+			if (res != "addmin")
 			{
 				cout << "sudent" << res << "error" << endl;
 				return true;
 			}
 		}
-		else if(str == "acti")
+		else if (str == "acti")
 			stu.cancel_acti(ssr);
 		else
 		{
@@ -190,7 +211,7 @@ int login()
 	cin >> username;
 
 	auto op = stus_dict.find(username);
-	if(op==stus_dict.end())
+	if (op == stus_dict.end())
 		return -1;
 
 	id = stus_dict[username];
@@ -219,7 +240,8 @@ void preload()
 	cout << "开始模拟" << endl;
 	refresh(2);
 
-	for(int status = login(); status==-1; status = login());
+	for (int status = login(); status == -1; status = login())
+		;
 	cout << "登陆成功！" << endl;
 	refresh(2);
 }
@@ -230,42 +252,61 @@ void preload()
 // now action
 // path
 
+bool action(Activity acti)
+{
+	if (acti.kind > 3 || acti.kind == 2)
+	{
+		acti.textout(cout);
+		stu.move(acti.loca);
+		return false;
+	}
+	if (acti.kind == 3)
+	{
+	}
+	return true;
+}
+
 void timestart()
 {
-	while(true)
+	while (true)
 	{
-		Tome now = {7, 22};
-		auto atci = stu.begin();
-		for(int i=1;i<=7;i++)
+		Month mm = {2, 19};
+		Tome now = {7, 23};
+		auto acti = stu.begin();
+		for (int i = 1; i <= 7; i++)
 		{
-			// loop(atci, now);
+			// loop(acti, now);
 			cout << "今天日程已结束!" << endl;
 			stu.rest();
- 			cout << endl << "明天日程: ";
+			cout << endl
+				 << "明天日程: ";
 			stu.nextday(now.day); // 输出第二天日程
 
-			for(int i=1;i<=24;i++)
+			for (int i = 1; i <= 24; i++)
 			{
-				if(kbhit()) // 检测键盘输入
+				if (kbhit()) // 检测键盘输入
 				{
 					bool op = true;
-					while(op)
+					while (op)
 					{
-						cout << "check!" << endl;
+						cout << "check input!" << endl;
 						string order;
 						cin >> order;
 						op = action(order);
 					}
 				}
+
+				mm.putime(cout);
 				now.putime(cout);
-				Sleep(1000*interval*2);
-				now.nextime();
-				if(now.hour == atci->tome.hour)
+				Sleep(1000 / interval);
+				int step = now.nextime();
+				if (step)
+					mm.next();
+
+				if (now.hour == acti->tome.hour)
 				{
-					// 判断acti类型
-					atci->textout(cout);
-					stu.move(atci->loca);
-					atci++;
+					action(*acti);
+					acti++;
 				}
 			}
 		}

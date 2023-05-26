@@ -30,7 +30,17 @@ bool operator<=(Activity a, Activity b)
 	return a.tome <= b.tome;
 }
 
-void Tome::nextime()
+void Month::next()
+{
+	this->day++;
+	if (this->day > mon[this->month])
+	{
+		this->day = 1;
+		this->month++;
+	}
+}
+
+int Tome::nextime()
 {
 	int status = 0;
 	this->hour++;
@@ -55,6 +65,7 @@ void Tome::nextime()
 	default:
 		break;
 	}
+	return status;
 }
 
 void Tome::outime(ostream &xout)
@@ -62,9 +73,15 @@ void Tome::outime(ostream &xout)
 	xout << "现在是星期" << week[this->day] << ' ' << this->hour << "点" << endl;
 }
 
+void Month::putime(ostream &xout)
+{
+	xout << "现在是" << setw(2) << setfill(' ') << this->month << "月";
+	xout << setw(2) << setfill(' ') << this->day << "日";
+}
+
 void Tome::putime(ostream &xout)
 {
-	xout << "现在是" << setw(2) << setfill(' ') << this->hour << "点" << endl;
+	xout << setw(2) << setfill(' ') << this->hour << "点" << endl;
 }
 
 void Activity::read(istream &ss)
