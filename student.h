@@ -60,3 +60,6 @@ bool opins(vAiter tar, Activity acti);
 void actiout(vA x);
 void stuinit();
 void stusave();
+
+string add_acti(Activity acti, string clas);
+string change_acti(Activity acti, string clas);
