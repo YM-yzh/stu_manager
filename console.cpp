@@ -43,11 +43,18 @@ bool action(string &str)
 			auto res = stu.find_acti(str);
 			res->textout(cout);
 		}
+		if(str == "tome")
+		{
+			Tome tome;
+			cin >> tome.day >> tome.hour;
+			auto res = stu.find_acti(tome);
+			res->textout(cout);
+		}
 		else if(str == "kind")
 		{
 			int x;
 			cin >> x;
-			auto res = stu.find_kind(x);
+			auto res = stu.find_acti(x);
 			for(auto i : res)
 				i.textout(cout);
 		}
@@ -228,7 +235,7 @@ void timestart()
 	while(true)
 	{
 		Tome now = {7, 22};
-		auto atci = stu.getless();
+		auto atci = stu.begin();
 		for(int i=1;i<=7;i++)
 		{
 			// loop(atci, now);
