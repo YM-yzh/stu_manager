@@ -12,7 +12,7 @@
 #include <algorithm>
 using namespace std;
 
-#define NUM 104
+#define NUM 1004
 
 #define Width 100
 #define Legth 100

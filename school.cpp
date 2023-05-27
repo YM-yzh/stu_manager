@@ -69,7 +69,7 @@ void mapinit()
 
 		// debugout << x1 << ' ' << y1 << endl;
 		// debugout << x2 << ' ' << y2 << endl;
-
+		// debugout << i << ':' << school.width << ' ' << school.length << endl;
 		roads[i].init(x1, y1, x2, y2);
 		school.add(roads[i].begin, roads[i].end);
 	}
