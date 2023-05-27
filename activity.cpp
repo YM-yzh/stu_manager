@@ -88,6 +88,7 @@ void Month::putime(ostream &xout)
 
 void Tome::putime(ostream &xout)
 {
+	xout << " 星期" << week[this->day] << ' ';
 	xout << setw(2) << setfill(' ') << this->hour << "点" << endl;
 }
 
@@ -103,7 +104,8 @@ void Activity::read(istream &ss)
 
 void Activity::write(ostream &ss)
 {
-	ss << this->name << ' ' << this->kind << ' ';
+	// ss << this->name << ' ' << this->kind << ' ';
+	ss << this->name << ' ' << ((this->kind == 1)?2:this->kind) << ' ';
 	ss << this->tome.day << ' ' << this->tome.hour << ' ' << this->last << ' ';
 	ss << this->form << ' ' << this->loca << ' ';
 	// if(!this->form)

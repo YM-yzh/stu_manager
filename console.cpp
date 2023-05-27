@@ -54,7 +54,7 @@ bool action(string &str)
 			auto res = stu.find_acti(str);
 			res->textout(cout);
 		}
-		if (str == "tome")
+		else if (str == "tome")
 		{
 			Tome tome;
 			cin >> tome.day >> tome.hour;
@@ -252,30 +252,28 @@ void preload()
 // now action
 // path
 
-bool action(vAiter acti)
+bool action(Activity acti)
 {
-	if (acti->kind > 3 || acti->kind == 2)
+	if (acti.kind > 3 || acti.kind == 2)
 	{
-		acti->textout(cout);
-		if(!acti->form)
-			stu.move(acti->loca);
+		acti.textout(cout);
+		if(acti.form == 0)
+			stu.move(acti.loca);
 	}
-	else if (acti->kind == 3)
-	{
-	}
-	else if (acti->kind == 1)
+	else if (acti.kind == 3)
 	{
 	}
-	else
-		return true;
+	else if (acti.kind == 1)
+	{
+	}
 
-	switch (acti->freq)
+	switch (acti.freq)
 	{
 	case 1:
-		acti->tome.nextday();
-		stu.insert_acti(*acti);
+		acti.tome.nextday();
+		stu.insert_acti(acti);
 	case 0:
-		stu.erase_acti(acti);
+		return true;
 	}
 	return false;
 }
@@ -294,12 +292,13 @@ void timestart()
 			stu.rest();
 			cout << endl
 				 << "明天日程: ";
-			stu.nextday(now.day); // 输出第二天日程
+			acti = stu.nextday(now.day, acti); // 输出第二天日程
 
 			for (int i = 1; i <= 24; i++)
 			{
 				if (kbhit()) // 检测键盘输入
 				{
+					acti -> textout(cout);
 					bool op = true;
 					while (op)
 					{
@@ -319,8 +318,11 @@ void timestart()
 
 				if (now.hour == acti->tome.hour)
 				{
-					action(acti);
-					acti++;
+					// action(*acti);
+					if(action(*acti))
+						stu.erase_acti(acti);
+					else
+						acti++;
 				}
 			}
 		}

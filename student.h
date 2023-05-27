@@ -43,7 +43,7 @@ public:
 	bool erase_acti(vAiter targt);
 	bool add_alarm(Activity acti, Tome tome, int freq);               // 闹钟
 
-	void nextday(int day);
+	vAiter nextday(int day, vAiter begin);
 	void move(string& loca);
 	void rest();
 

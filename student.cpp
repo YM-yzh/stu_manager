@@ -51,20 +51,24 @@ string Student::get_domi()
 	return this->domi;
 }
 
-void Student::nextday(int day)
+vAiter Student::nextday(int day, vAiter begin)
 {
+	vAiter res = this->end();
 	day = day % 7 + 1;
 	cout << "星期" << week[day] << endl;
-	for (auto i : this->acti)
+	for (auto i = begin; i != this->end(); i++)
 	{
-		if (i.tome.day < day)
+		if (i->tome.day < day)
 			continue;
-		if (i.tome.day > day)
+		if (i->tome.day > day)
 			break;
-		cout << setw(2) << setfill(' ') << i.tome.hour << "点 ~ ";
-		cout << setw(2) << setfill(' ') << i.tome.hour + i.last << "点 ";
-		cout << i.loca << ' ' << i.name << endl;
+		if (res == this->end())
+			res = i;
+		cout << setw(2) << setfill(' ') << i->tome.hour << "点 ~ ";
+		cout << setw(2) << setfill(' ') << i->tome.hour + i->last << "点 ";
+		cout << i->loca << ' ' << i->name << endl;
 	}
+	return res;
 }
 
 void Student::move(string &loca)
