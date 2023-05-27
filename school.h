@@ -14,6 +14,8 @@ extern Graph school;
 void out_dict();
 void mapinit();
 
+extern ofstream pathout;
+
 void pointout(deque<Position> &path, int x);
-void pathout(Path &res);
+void outpath(Path &res, ostream &xout);
 void Go(int a, int b);

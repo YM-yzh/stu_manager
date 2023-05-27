@@ -40,15 +40,19 @@ public:
 	bool insert_acti(Activity acti);                                // 二分查找课程
 	bool change_acti(Activity acti);                                // 修改活动信息
 	bool cancel_acti(string name);                                  // 取消活动
-
+	bool erase_acti(vAiter targt);
 	bool add_alarm(Activity acti, Tome tome, int freq);               // 闹钟
 
 	void nextday(int day);
 	void move(string& loca);
 	void rest();
 
+	string get_user();
 	string get_name();
+	string get_id();
 	string get_class();
+	string get_domi();
+
 	int get_Location();
 
 	void textout(ostream& xout);

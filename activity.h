@@ -17,6 +17,7 @@ struct Tome
 	int hour; // 以小时为单位进行活动
 
 	int nextime();
+	void nextday();
 	void outime(ostream &xout);
 	void putime(ostream &xout);
 };

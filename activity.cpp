@@ -68,6 +68,13 @@ int Tome::nextime()
 	return status;
 }
 
+void Tome::nextday()
+{
+	this->day++;
+	if (this->day == 8)
+		this->day = 1;
+}
+
 void Tome::outime(ostream &xout)
 {
 	xout << "现在是星期" << week[this->day] << ' ' << this->hour << "点" << endl;

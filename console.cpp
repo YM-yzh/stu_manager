@@ -252,18 +252,32 @@ void preload()
 // now action
 // path
 
-bool action(Activity acti)
+bool action(vAiter acti)
 {
-	if (acti.kind > 3 || acti.kind == 2)
+	if (acti->kind > 3 || acti->kind == 2)
 	{
-		acti.textout(cout);
-		stu.move(acti.loca);
-		return false;
+		acti->textout(cout);
+		if(!acti->form)
+			stu.move(acti->loca);
 	}
-	if (acti.kind == 3)
+	else if (acti->kind == 3)
 	{
 	}
-	return true;
+	else if (acti->kind == 1)
+	{
+	}
+	else
+		return true;
+
+	switch (acti->freq)
+	{
+	case 1:
+		acti->tome.nextday();
+		stu.insert_acti(*acti);
+	case 0:
+		stu.erase_acti(acti);
+	}
+	return false;
 }
 
 void timestart()
@@ -305,7 +319,7 @@ void timestart()
 
 				if (now.hour == acti->tome.hour)
 				{
-					action(*acti);
+					action(acti);
 					acti++;
 				}
 			}

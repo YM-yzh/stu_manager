@@ -26,14 +26,29 @@ vAiter Student::begin()
 	return this->acti.begin();
 }
 
+string Student::get_user()
+{
+	return this->user;
+}
+
 string Student::get_name()
 {
 	return this->name;
 }
 
+string Student::get_id()
+{
+	return this->id;
+}
+
 string Student::get_class()
 {
 	return this->clas;
+}
+
+string Student::get_domi()
+{
+	return this->domi;
 }
 
 void Student::nextday(int day)
@@ -198,6 +213,13 @@ bool Student::cancel_acti(string name)
 	auto targt = this->find_acti(name);
 	if (targt == this->end())
 		return false;
+	this->acti.erase(targt);
+	this->acti_num--;
+	return true;
+}
+
+bool Student::erase_acti(vAiter targt)
+{
 	this->acti.erase(targt);
 	this->acti_num--;
 	return true;
