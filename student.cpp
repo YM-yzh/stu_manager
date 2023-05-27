@@ -51,9 +51,8 @@ string Student::get_domi()
 	return this->domi;
 }
 
-vAiter Student::nextday(int day, vAiter begin)
+void Student::nextday(int day, vAiter begin)
 {
-	vAiter res = this->end();
 	day = day % 7 + 1;
 	cout << "星期" << week[day] << endl;
 	for (auto i = begin; i != this->end(); i++)
@@ -62,13 +61,10 @@ vAiter Student::nextday(int day, vAiter begin)
 			continue;
 		if (i->tome.day > day)
 			break;
-		if (res == this->end())
-			res = i;
 		cout << setw(2) << setfill(' ') << i->tome.hour << "点 ~ ";
 		cout << setw(2) << setfill(' ') << i->tome.hour + i->last << "点 ";
 		cout << i->loca << ' ' << i->name << endl;
 	}
-	return res;
 }
 
 void Student::move(string &loca)
@@ -163,16 +159,20 @@ vAiter Student::find_acti(Tome tome)
 
 vAiter Student::find_acti(string name)
 {
-	for (vAiter i = this->acti.begin(); i != this->acti.end(); i++)
+	for (vAiter i = this->begin(); i != this->end(); i++)
+	{
+		debugout << i->name << name << endl;
 		if (i->name == name)
 			return i;
-	return this->acti.end();
+	}
+	return this->end();
 }
 
 bool opins(vAiter tar, Activity acti)
 {
 	Activity l = *tar;
-	Activity r = *(tar + 1);
+	for (tar++; tar->kind == 3; tar++);
+	Activity r = *tar;
 	return (l.tome + l.last) <= (acti.tome) && (acti.tome + acti.last) <= r.tome;
 }
 
@@ -210,10 +210,11 @@ vT Student::insert_acti(Activity acti)
 	}
 	feb.pop_back();
 	Tome begin = (Tome){targt->tome.day, 6};
-	for (auto pre = targt - 1; pre->tome.day == targt->tome.day; targt--, pre = targt - 1)
-		;
+	for (auto pre = targt - 1; pre->tome.day == targt->tome.day; targt--, pre = targt - 1);
 	for (auto now = targt; targt->tome.day == now->tome.day; targt++)
 	{
+		if (targt->kind == 3)
+			continue;
 		if (targt->tome.hour - begin.hour >= acti.last)
 		{
 			pp.first = begin;
@@ -248,11 +249,11 @@ bool Student::cancel_acti(string name)
 	return true;
 }
 
-bool Student::erase_acti(vAiter targt)
+vAiter Student::erase_acti(vAiter targt)
 {
-	this->acti.erase(targt);
+	auto res = this->acti.erase(targt);
 	this->acti_num--;
-	return true;
+	return res;
 }
 
 bool Student::add_alarm(Activity acti, Tome tome, int freq)

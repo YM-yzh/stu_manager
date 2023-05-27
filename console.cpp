@@ -50,6 +50,11 @@ bool action(string &str)
 		cout << "error" << endl;
 		return false;
 	}
+	if (str == "show")
+	{
+		stu.save_activity(cout, cout);
+		return false;
+	}
 	if (str == "find")
 	{
 		cout << "kind of find: ";
@@ -145,7 +150,9 @@ bool action(string &str)
 		cin >> alarm.day >> alarm.hour;
 		cin >> freq;
 
-		stu.add_alarm(acti, alarm, freq);
+		bool op = stu.add_alarm(acti, alarm, freq);
+		if (!op)
+			cout << "failed" << endl;
 		return false;
 	}
 	if (str == "change")
@@ -189,7 +196,7 @@ bool action(string &str)
 		cout << "kind of acti: ";
 		cin >> str;
 
-		cout << "input acti name: " << endl;
+		cout << "input acti name: ";
 		string ssr;
 		cin >> ssr;
 
@@ -211,7 +218,14 @@ bool action(string &str)
 			}
 		}
 		else if (str == "acti")
-			stu.cancel_acti(ssr);
+		{
+			bool op = stu.cancel_acti(ssr);
+			if (!op)
+			{
+				cout << "wrong" << endl;
+				return true;
+			}
+		}
 		else
 		{
 			cout << "wrong" << endl;
@@ -264,6 +278,7 @@ void preload()
 	for (int status = login(); status == -1; status = login())
 		;
 	cout << "登陆成功！" << endl;
+	debugout << stu.get_user() << " login" << endl;
 	refresh(2);
 }
 
@@ -308,7 +323,7 @@ void timestart()
 	{
 		Month mm = {2, 19};
 		Tome now = {7, eNd};
-		auto acti = stu.begin();
+		vAiter acti = stu.begin();
 		for (int i = 1; i <= 7; i++)
 		{
 			// loop(acti, now);
@@ -316,12 +331,13 @@ void timestart()
 			stu.rest();
 			cout << endl
 				 << "明天日程: ";
-			acti = stu.nextday(now.day, acti); // 输出第二天日程
+			stu.nextday(now.day, acti); // 输出第二天日程
 
 			while (now.hour > 0)
 			{
 				if (kbhit()) // 检测键盘输入
 				{
+					cout << "check input!" << endl;
 					acti->textout(cout);
 					bool op = true;
 					while (op)
@@ -342,10 +358,13 @@ void timestart()
 
 				if (now.hour == acti->tome.hour)
 				{
-					if (action(*acti))
-						stu.erase_acti(acti);
-					// ;
-					else acti++;
+					// if (action(*acti))
+					// 	acti = stu.erase_acti(acti);
+					// else acti++;
+
+					action(*acti);
+					// acti->textout(cout);
+					acti++;
 				}
 			}
 		}

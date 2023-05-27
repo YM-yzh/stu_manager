@@ -112,6 +112,7 @@ void Activity::write(ostream &ss)
 	// if(!this->form)
 	ss << this->room << ' ';
 	ss << this->freq << endl;
+	// ss << (this->freq >= 1?2:0) << endl;
 }
 
 void Activity::textout(ostream &xout)
