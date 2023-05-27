@@ -161,7 +161,7 @@ vAiter Student::find_acti(string name)
 {
 	for (vAiter i = this->begin(); i != this->end(); i++)
 	{
-		debugout << i->name << name << endl;
+		// debugout << i->name << name << endl;
 		if (i->name == name)
 			return i;
 	}
