@@ -128,6 +128,11 @@ void Go(int a, int b)
 	pathout.close();
 }
 
+void muilti_go(int now, Temp a)
+{
+
+}
+
 int dis[NUM][NUM] = {};
 
 void Floyed(int num)

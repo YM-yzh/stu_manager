@@ -305,7 +305,7 @@ bool action(Activity acti)
 	}
 	else if (acti.kind == 1)
 	{
-		school.muilti_go(stu->get_Location(), acti.tt);
+		muilti_go(stu->get_Location(), acti.tt);
 	}
 	switch (acti.freq)
 	{

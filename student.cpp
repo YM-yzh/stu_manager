@@ -169,6 +169,12 @@ vAiter Student::find_acti(string name)
 	return this->end();
 }
 
+bool opbefore(vAiter tar, Activity acti)
+{
+	Activity l = *tar;
+	return (l.tome + l.last) <= (acti.tome);
+}
+
 bool opins(vAiter tar, Activity acti)
 {
 	Activity l = *tar;
@@ -212,6 +218,8 @@ vT Student::insert_acti(Activity acti)
 	bool flag;
 	if(targt + 1 == this->begin())
 		flag = opafter(targt + 1, acti);
+	if(targt == this->end())
+		flag = opbefore(targt --, acti);
 	else
 		flag = opins(targt, acti);
 	if (flag)
