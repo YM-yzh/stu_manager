@@ -197,7 +197,7 @@ vT Student::insert_acti(Activity acti)
 {
 	vT feb = {};
 	pTT pp;
-	pp.first = pp.second = (Tome){ 0, 0};
+	pp.first = pp.second = (Tome){0, 0};
 	feb.push_back(pp);
 
 	auto targt = this->find_acti(acti);
@@ -208,12 +208,27 @@ vT Student::insert_acti(Activity acti)
 		this->acti_num++;
 		return feb;
 	}
-
-	for (auto pre = targt -1; pre->tome.day == targt->tome.day; targt--, pre = targt -1);
-	for (auto now = targt; now->tome.day == targt->tome.day; now++)
+	feb.pop_back();
+	Tome begin = (Tome){targt->tome.day, 6};
+	for (auto pre = targt - 1; pre->tome.day == targt->tome.day; targt--, pre = targt - 1)
+		;
+	for (auto now = targt; targt->tome.day == now->tome.day; targt++)
 	{
-
+		if (targt->tome.hour - begin.hour >= acti.last)
+		{
+			pp.first = begin;
+			pp.second = targt->tome;
+			feb.push_back(pp);
+		}
+		begin = targt->tome + targt->last;
 	}
+	if (begin.hour < End)
+	{
+		pp.first = begin;
+		pp.second = (Tome){begin.day, End};
+		feb.push_back(pp);
+	}
+	begin = targt->tome + targt->last;
 	return feb;
 }
 
@@ -223,11 +238,14 @@ vT Student::change_acti(Activity acti)
 	return this->insert_acti(acti); // 为了维护有序序列，先取消原有日程，再添加
 }
 
-void Student::cancel_acti(string name)
+bool Student::cancel_acti(string name)
 {
 	auto targt = this->find_acti(name);
+	if (targt == this->end())
+		return false;
 	this->acti.erase(targt);
 	this->acti_num--;
+	return true;
 }
 
 bool Student::erase_acti(vAiter targt)
@@ -394,8 +412,14 @@ string change_acti(Activity acti, string clas)
 string cancel_acti(string name, string clas)
 {
 	for (int i = 1; i <= num_stu; i++)
+	{
 		if (stus[i].get_class() == clas)
-			stus[i].cancel_acti(name);
+		{
+			auto op = stus[i].cancel_acti(name);
+			if (!op)
+				return stus[i].get_name();
+		}
+	}
 	return "addmin";
 }
 

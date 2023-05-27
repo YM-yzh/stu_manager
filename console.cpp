@@ -28,6 +28,12 @@ void subsave()
 	exit(0);
 }
 
+void putime(Tome tt)
+{
+	cout << " 星期" << week[tt.day] << ' ';
+	cout << setw(2) << setfill(' ') << tt.hour << "点";
+}
+
 bool action(string &str)
 {
 	cout << str << endl;
@@ -103,7 +109,22 @@ bool action(string &str)
 			}
 		}
 		else if (str == "acti")
-			stu.insert_acti(acti);
+		{
+			auto res = stu.insert_acti(acti);
+			if (res.size() == 0 || res.begin()->first.day > 0)
+			{
+				cout << "failed" << endl;
+				cout << "possible time:" << endl;
+				for (auto i : res)
+				{
+					putime(i.first);
+					cout << " ~ ";
+					putime(i.second);
+					cout << endl;
+				}
+				return true;
+			}
+		}
 		else
 		{
 			cout << "wrong" << endl;
@@ -257,13 +278,13 @@ bool action(Activity acti)
 	if (acti.kind > 3 || acti.kind == 2)
 	{
 		acti.textout(cout);
-		if(acti.form == 0)
+		if (acti.form == 0)
 			stu.move(acti.loca);
 	}
 	else if (acti.kind == 3)
 	{
 		acti.alarmout(cout);
-		if(acti.form == 0)
+		if (acti.form == 0)
 			stu.move(acti.loca);
 	}
 	else if (acti.kind == 1)
@@ -286,7 +307,7 @@ void timestart()
 	while (true)
 	{
 		Month mm = {2, 19};
-		Tome now = {7, 23};
+		Tome now = {7, End};
 		auto acti = stu.begin();
 		for (int i = 1; i <= 7; i++)
 		{
@@ -297,11 +318,11 @@ void timestart()
 				 << "明天日程: ";
 			acti = stu.nextday(now.day, acti); // 输出第二天日程
 
-			for (int i = 1; i <= 24; i++)
+			while (now.hour > 0)
 			{
 				if (kbhit()) // 检测键盘输入
 				{
-					acti -> textout(cout);
+					acti->textout(cout);
 					bool op = true;
 					while (op)
 					{
@@ -321,11 +342,10 @@ void timestart()
 
 				if (now.hour == acti->tome.hour)
 				{
-					// action(*acti);
-					if(action(*acti))
+					if (action(*acti))
 						stu.erase_acti(acti);
-					else
-						acti++;
+					// ;
+					else acti++;
 				}
 			}
 		}

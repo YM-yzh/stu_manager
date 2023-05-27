@@ -40,7 +40,7 @@ public:
 
 	vT insert_acti(Activity acti);                                // 二分查找课程
 	vT change_acti(Activity acti);                                // 修改活动信息
-	void cancel_acti(string name);                                  // 取消活动
+	bool cancel_acti(string name);                                  // 取消活动
 	bool erase_acti(vAiter targt);
 	bool add_alarm(Activity acti, Tome tome, int freq);               // 闹钟
 
