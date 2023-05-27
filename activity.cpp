@@ -47,7 +47,7 @@ int Tome::nextime()
 	this->hour++;
 	if (this->hour == 24)
 	{
-		this->hour = Begin;
+		this->hour = bEgin;
 		this->day++;
 		status++;
 	}

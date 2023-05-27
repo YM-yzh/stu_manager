@@ -17,8 +17,8 @@ using namespace std;
 #define Width 100
 #define Legth 100
 
-#define Begin 6
-#define End 23
+#define bEgin 6
+#define eNd 23
 
 typedef map<string, int, greater<string>> maps;
 

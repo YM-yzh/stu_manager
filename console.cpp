@@ -307,7 +307,7 @@ void timestart()
 	while (true)
 	{
 		Month mm = {2, 19};
-		Tome now = {7, End};
+		Tome now = {7, eNd};
 		auto acti = stu.begin();
 		for (int i = 1; i <= 7; i++)
 		{

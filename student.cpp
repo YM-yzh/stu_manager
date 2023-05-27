@@ -222,10 +222,10 @@ vT Student::insert_acti(Activity acti)
 		}
 		begin = targt->tome + targt->last;
 	}
-	if (begin.hour < End)
+	if (begin.hour < eNd)
 	{
 		pp.first = begin;
-		pp.second = (Tome){begin.day, End};
+		pp.second = (Tome){begin.day, eNd};
 		feb.push_back(pp);
 	}
 	begin = targt->tome + targt->last;
