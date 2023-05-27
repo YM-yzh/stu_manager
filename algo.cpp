@@ -7,7 +7,7 @@ bool operator==(Position a, Position b)
 
 void out_posi(Position a)
 {
-	debugout << a.x << ',' << a.y << endl;
+	pathsout << a.x << ',' << a.y << endl;
 }
 
 void Graph::set(int wid, int len)

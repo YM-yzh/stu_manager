@@ -26,6 +26,11 @@ vAiter Student::begin()
 	return this->acti.begin();
 }
 
+vAiter Student::end()
+{
+	return this->acti.end();
+}
+
 string Student::get_user()
 {
 	return this->user;
@@ -71,7 +76,8 @@ void Student::move(string &loca)
 {
 	int aid = this->now;
 	int bid = buid_dict[loca];
-	Go(aid, bid);
+	if (aid != bid)
+		Go(aid, bid);
 	this->now = bid;
 }
 
@@ -133,11 +139,6 @@ void Student::merge()
 	this->acti_num += this->less_num;
 }
 
-vAiter Student::end()
-{
-	return this->acti.end();
-}
-
 vA Student::find_acti(int kind)
 {
 	vA res = {};
@@ -176,6 +177,13 @@ bool opins(vAiter tar, Activity acti)
 	return (l.tome + l.last) <= (acti.tome) && (acti.tome + acti.last) <= r.tome;
 }
 
+bool opafter(vAiter tar, Activity acti)
+{
+	for (tar++; tar->kind == 3; tar++);
+	Activity r = *tar;
+	return (acti.tome + acti.last) <= r.tome;
+}
+
 vAiter Student::find_acti(Activity acti)
 {
 	// vAiter targt = lower_bound(this->acti.begin(), this->acti.end(), acti);
@@ -201,14 +209,28 @@ vT Student::insert_acti(Activity acti)
 	feb.push_back(pp);
 
 	auto targt = this->find_acti(acti);
-	bool flag = opins(targt, acti);
+	bool flag;
+	if(targt + 1 == this->begin())
+		flag = opafter(targt + 1, acti);
+	else
+		flag = opins(targt, acti);
 	if (flag)
 	{
-		this->acti.insert(targt + 1, acti);
-		this->acti_num++;
+		if (acti.kind == 1)
+		{
+
+		}
+		else
+		{
+			this->acti.insert(targt + 1, acti);
+			this->acti_num++;
+			if (acti.kind > 3)
+				this->less_num++;
+		}
 		return feb;
 	}
 	feb.pop_back();
+
 	Tome begin = (Tome){targt->tome.day, 6};
 	for (auto pre = targt - 1; pre->tome.day == targt->tome.day; targt--, pre = targt - 1);
 	for (auto now = targt; targt->tome.day == now->tome.day; targt++)
@@ -245,7 +267,6 @@ bool Student::cancel_acti(string name)
 	if (targt == this->end())
 		return false;
 	this->acti.erase(targt);
-	this->acti_num--;
 	return true;
 }
 
@@ -253,6 +274,8 @@ vAiter Student::erase_acti(vAiter targt)
 {
 	auto res = this->acti.erase(targt);
 	this->acti_num--;
+	if (targt->kind > 3)
+		this->less_num--;
 	return res;
 }
 

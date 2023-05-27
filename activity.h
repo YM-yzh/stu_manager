@@ -26,10 +26,12 @@ struct Temp
 {
 	Tome tome;
 	int temp_num;
-	struct
+	struct BB
 	{
 		string name, loca;
 	} temp_acti[5]; // 临时事务可以同时完成
+
+	void add(string name, string loca);
 };
 
 struct Activity // 学生活动信息

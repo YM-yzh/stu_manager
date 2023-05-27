@@ -17,3 +17,7 @@ void mapinit();
 void pointout(deque<Position> &path, int x);
 void outpath(Path &res, ostream &xout);
 void Go(int a, int b);
+
+extern int dis[NUM][NUM];
+
+void Floyed(int num);

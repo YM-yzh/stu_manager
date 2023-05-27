@@ -10,7 +10,7 @@
 
 double interval = 2.0;
 
-Student stu;
+Student *stu;
 
 void refresh(int tim)
 {
@@ -52,7 +52,8 @@ bool action(string &str)
 	}
 	if (str == "show")
 	{
-		stu.save_activity(cout, cout);
+		// cout << stu->get_num() << endl;
+		stu->save_activity(cout, cout);
 		return false;
 	}
 	if (str == "find")
@@ -62,21 +63,21 @@ bool action(string &str)
 		if (str == "name")
 		{
 			cin >> str;
-			auto res = stu.find_acti(str);
+			auto res = stu->find_acti(str);
 			res->textout(cout);
 		}
 		else if (str == "tome")
 		{
 			Tome tome;
 			cin >> tome.day >> tome.hour;
-			auto res = stu.find_acti(tome);
+			auto res = stu->find_acti(tome);
 			res->textout(cout);
 		}
 		else if (str == "kind")
 		{
 			int x;
 			cin >> x;
-			auto res = stu.find_acti(x);
+			auto res = stu->find_acti(x);
 			for (auto i : res)
 				i.textout(cout);
 		}
@@ -115,7 +116,7 @@ bool action(string &str)
 		}
 		else if (str == "acti")
 		{
-			auto res = stu.insert_acti(acti);
+			auto res = stu->insert_acti(acti);
 			if (res.size() == 0 || res.begin()->first.day > 0)
 			{
 				cout << "failed" << endl;
@@ -150,7 +151,7 @@ bool action(string &str)
 		cin >> alarm.day >> alarm.hour;
 		cin >> freq;
 
-		bool op = stu.add_alarm(acti, alarm, freq);
+		bool op = stu->add_alarm(acti, alarm, freq);
 		if (!op)
 			cout << "failed" << endl;
 		return false;
@@ -182,7 +183,7 @@ bool action(string &str)
 			}
 		}
 		else if (str == "acti")
-			stu.change_acti(acti);
+			stu->change_acti(acti);
 		else
 		{
 			cout << "wrong" << endl;
@@ -219,7 +220,7 @@ bool action(string &str)
 		}
 		else if (str == "acti")
 		{
-			bool op = stu.cancel_acti(ssr);
+			bool op = stu->cancel_acti(ssr);
 			if (!op)
 			{
 				cout << "wrong" << endl;
@@ -250,7 +251,7 @@ int login()
 		return -1;
 
 	id = stus_dict[username];
-	stu = stus[id];
+	stu = &stus[id];
 
 	bool status = true;
 
@@ -260,7 +261,7 @@ int login()
 			cout << "密码错误！" << endl;
 		cout << "请输入密码: ";
 		cin >> password;
-		if (stu.check(password))
+		if (stu->check(password))
 			status = false;
 	}
 	return id;
@@ -278,7 +279,7 @@ void preload()
 	for (int status = login(); status == -1; status = login())
 		;
 	cout << "登陆成功！" << endl;
-	debugout << stu.get_user() << " login" << endl;
+	debugout << stu->get_user() << " login" << endl;
 	refresh(2);
 }
 
@@ -294,23 +295,23 @@ bool action(Activity acti)
 	{
 		acti.textout(cout);
 		if (acti.form == 0)
-			stu.move(acti.loca);
+			stu->move(acti.loca);
 	}
 	else if (acti.kind == 3)
 	{
 		acti.alarmout(cout);
 		if (acti.form == 0)
-			stu.move(acti.loca);
+			stu->move(acti.loca);
 	}
 	else if (acti.kind == 1)
 	{
+		school.muilti_go(stu->get_Location(), acti.tt);
 	}
-
 	switch (acti.freq)
 	{
 	case 1:
 		acti.tome.nextday();
-		stu.insert_acti(acti);
+		stu->insert_acti(acti);
 	case 0:
 		return true;
 	}
@@ -323,17 +324,17 @@ void timestart()
 	{
 		Month mm = {2, 19};
 		Tome now = {7, eNd};
-		vAiter acti = stu.begin();
+		vAiter acti = stu->begin();
 		for (int i = 1; i <= 7; i++)
 		{
 			// loop(acti, now);
 			cout << "今天日程已结束!" << endl;
-			stu.rest();
+			stu->rest();
 			cout << endl
 				 << "明天日程: ";
-			stu.nextday(now.day, acti); // 输出第二天日程
+			stu->nextday(now.day, acti); // 输出第二天日程
 
-			while (now.hour > 0)
+			for (int j=0; j<23; j++)
 			{
 				if (kbhit()) // 检测键盘输入
 				{
@@ -355,16 +356,18 @@ void timestart()
 				int step = now.nextime();
 				if (step)
 					mm.next();
+				// if (step > 1)
+					// acti = stu->begin();
 
 				if (now.hour == acti->tome.hour)
 				{
-					// if (action(*acti))
-					// 	acti = stu.erase_acti(acti);
-					// else acti++;
+					if (action(*acti))
+						acti = stu->erase_acti(acti);
+					else acti++;
 
-					action(*acti);
-					// acti->textout(cout);
-					acti++;
+					// action(*acti);
+					// // acti->textout(cout);
+					// acti++;
 				}
 			}
 		}

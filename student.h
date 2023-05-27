@@ -66,6 +66,7 @@ extern Student stus[NUM];
 extern maps stus_dict;
 
 bool opins(vAiter tar, Activity acti);
+bool opafter(vAiter tar, Activity acti);
 void actiout(vA x);
 void stuinit();
 void stusave();

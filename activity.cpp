@@ -47,7 +47,7 @@ int Tome::nextime()
 	this->hour++;
 	if (this->hour == 24)
 	{
-		this->hour = bEgin;
+		this->hour = 0;
 		this->day++;
 		status++;
 	}
@@ -91,6 +91,11 @@ void Tome::putime(ostream &xout)
 {
 	xout << " 星期" << week[this->day] << ' ';
 	xout << setw(2) << setfill(' ') << this->hour << "点" << endl;
+}
+
+void Temp::add(string name, string loca)
+{
+	this->temp_acti[++temp_num] = (BB){name, loca};
 }
 
 void Activity::read(istream &ss)

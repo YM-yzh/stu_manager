@@ -12,7 +12,7 @@
 #include <algorithm>
 using namespace std;
 
-#define NUM 1004
+#define NUM 104
 
 #define Width 100
 #define Legth 100
@@ -31,3 +31,4 @@ extern string file_mkd;
 extern string save_mkd;
 
 extern ofstream debugout;
+extern ofstream pathsout;

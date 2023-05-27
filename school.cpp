@@ -76,6 +76,9 @@ void mapinit()
 
 	debugout << "road info read" << endl;
 	info_road.close();
+	debugout << "distance processing" << endl;
+	Floyed(num_buid);
+	debugout << "distance processed" << endl;
 	school.textout(debugout);
 }
 
@@ -117,9 +120,20 @@ void Go(int a, int b)
 {
 	ofstream pathout(file_path + "path.out");
 	debugout << buids[a].name << " -> " << buids[b].name << endl;
+	pathsout << buids[a].name << " -> " << buids[b].name << endl;
 	Path res = school.P2P(buids[a].posi, buids[b].posi);
 	// res.path.push_back(res.now);
 	outpath(res, pathout);
 	// pointout(res.path, b);
 	pathout.close();
+}
+
+int dis[NUM][NUM] = {};
+
+void Floyed(int num)
+{
+	memset(dis, 114514, sizeof(dis));
+	for(int i=1;i<=num;i++)
+		for(int j=1;j<i;j++)
+			dis[i][j]=dis[j][i]=school.BFS(buids[i].posi, buids[j].posi).path.size();
 }
