@@ -51,9 +51,14 @@ struct Activity // 学生活动信息
 
 	void read(istream &ss);
 	void write(ostream &ss);
+
 	string textshow();
 	void textout(ostream &xout);
+	void alarmout(ostream &xout);
 };
+
+typedef pair<Tome, Tome> pTT;
+typedef vector< pTT > vT;
 
 typedef vector<Activity> vA;
 typedef vector<Activity>::iterator vAiter;

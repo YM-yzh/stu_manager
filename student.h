@@ -32,14 +32,15 @@ public:
 
 	vAiter begin();                                                 // 获取活动数组开头
 	vAiter end();
+
 	vAiter find_acti(Activity acti);                                // 二分查找课程
 	vAiter find_acti(string name);
 	vAiter find_acti(Tome tome);
 	vA find_acti(int kind);
 
-	bool insert_acti(Activity acti);                                // 二分查找课程
-	bool change_acti(Activity acti);                                // 修改活动信息
-	bool cancel_acti(string name);                                  // 取消活动
+	vT insert_acti(Activity acti);                                // 二分查找课程
+	vT change_acti(Activity acti);                                // 修改活动信息
+	void cancel_acti(string name);                                  // 取消活动
 	bool erase_acti(vAiter targt);
 	bool add_alarm(Activity acti, Tome tome, int freq);               // 闹钟
 

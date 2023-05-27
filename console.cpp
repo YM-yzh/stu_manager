@@ -112,7 +112,7 @@ bool action(string &str)
 		cout << "added" << endl;
 		return false;
 	}
-	if (str == "set")
+	if (str == "alarm")
 	{
 		cout << "input acti: " << endl;
 		Activity acti;
@@ -262,6 +262,9 @@ bool action(Activity acti)
 	}
 	else if (acti.kind == 3)
 	{
+		acti.alarmout(cout);
+		if(acti.form == 0)
+			stu.move(acti.loca);
 	}
 	else if (acti.kind == 1)
 	{

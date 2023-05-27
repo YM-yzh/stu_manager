@@ -193,33 +193,41 @@ vAiter Student::find_acti(Activity acti)
 	return this->acti.begin() + left - 1;
 }
 
-bool Student::insert_acti(Activity acti)
+vT Student::insert_acti(Activity acti)
 {
+	vT feb = {};
+	pTT pp;
+	pp.first = pp.second = (Tome){ 0, 0};
+	feb.push_back(pp);
+
 	auto targt = this->find_acti(acti);
-	if (!opins(targt, acti))
-		return false;
-	this->acti.insert(targt + 1, acti);
-	this->acti_num++;
-	return true;
+	bool flag = opins(targt, acti);
+	if (flag)
+	{
+		this->acti.insert(targt + 1, acti);
+		this->acti_num++;
+		return feb;
+	}
+
+	for (auto pre = targt -1; pre->tome.day == targt->tome.day; targt--, pre = targt -1);
+	for (auto now = targt; now->tome.day == targt->tome.day; now++)
+	{
+
+	}
+	return feb;
 }
 
-bool Student::change_acti(Activity acti)
+vT Student::change_acti(Activity acti)
 {
-	bool flag = this->cancel_acti(acti.name);
-	if (!flag)
-		return false;
-	flag = this->insert_acti(acti); // 为了维护有序序列，先取消原有日程，再添加
-	return flag;
+	this->cancel_acti(acti.name);
+	return this->insert_acti(acti); // 为了维护有序序列，先取消原有日程，再添加
 }
 
-bool Student::cancel_acti(string name)
+void Student::cancel_acti(string name)
 {
 	auto targt = this->find_acti(name);
-	if (targt == this->end())
-		return false;
 	this->acti.erase(targt);
 	this->acti_num--;
-	return true;
 }
 
 bool Student::erase_acti(vAiter targt)
@@ -238,7 +246,8 @@ bool Student::add_alarm(Activity acti, Tome tome, int freq)
 	alarm.tome = tome;
 	alarm.last = 0;
 	alarm.freq = freq;
-	return this->insert_acti(alarm);
+	auto res = this->insert_acti(alarm);
+	return res.begin()->first.day == 0;
 }
 
 void Student::textout(ostream &xout)
@@ -360,8 +369,8 @@ string add_acti(Activity acti, string clas)
 	{
 		if (stus[i].get_class() == clas)
 		{
-			bool op = stus[i].insert_acti(acti);
-			if (!op)
+			auto op = stus[i].insert_acti(acti);
+			if (op.begin()->first.day > 0)
 				return stus[i].get_name();
 		}
 	}
@@ -374,8 +383,8 @@ string change_acti(Activity acti, string clas)
 	{
 		if (stus[i].get_class() == clas)
 		{
-			bool op = stus[i].change_acti(acti);
-			if (!op)
+			auto op = stus[i].change_acti(acti);
+			if (op.begin()->first.day > 0)
 				return stus[i].get_name();
 		}
 	}

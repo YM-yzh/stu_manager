@@ -1,4 +1,5 @@
 #include "activity.h"
+#include <windows.h>
 
 bool operator<(Tome a, Tome b)
 {
@@ -104,8 +105,8 @@ void Activity::read(istream &ss)
 
 void Activity::write(ostream &ss)
 {
-	// ss << this->name << ' ' << this->kind << ' ';
-	ss << this->name << ' ' << ((this->kind == 1)?2:this->kind) << ' ';
+	ss << this->name << ' ' << this->kind << ' ';
+	// ss << this->name << ' ' << ((this->kind == 1)?2:this->kind) << ' ';
 	ss << this->tome.day << ' ' << this->tome.hour << ' ' << this->last << ' ';
 	ss << this->form << ' ' << this->loca << ' ';
 	// if(!this->form)
@@ -118,6 +119,16 @@ void Activity::textout(ostream &xout)
 	xout << "星期" << week[this->tome.day] << ' ';
 	xout << setw(2) << setfill(' ') << this->tome.hour << "点 ~ ";
 	xout << setw(2) << setfill(' ') << this->tome.hour + this->last << "点 ";
+	xout << this->loca << ' ' << this->room << ' ' << this->name << endl;
+}
+
+void Activity::alarmout(ostream &xout)
+{
+	xout << "闹钟提醒！" << endl;
+	Beep(659, 500);
+	xout << "星期" << week[this->that.day] << ' ';
+	xout << setw(2) << setfill(' ') << this->that.hour << "点 ~ ";
+	xout << setw(2) << setfill(' ') << this->that.hour + this->last << "点 ";
 	xout << this->loca << ' ' << this->room << ' ' << this->name << endl;
 }
 

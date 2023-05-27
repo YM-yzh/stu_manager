@@ -108,18 +108,18 @@ void pointout(deque<Position> &path, int x)
 
 void outpath(Path &res, ostream &xout)
 {
-	xout << res.path.size();
+	xout << res.path.size() << endl;
 	for (auto i : res.path)
 		xout << i.x << ' ' << i.y << endl;
 }
 
-ofstream pathout(file_path + "path.out");
-
 void Go(int a, int b)
 {
+	ofstream pathout(file_path + "path.out");
 	debugout << buids[a].name << " -> " << buids[b].name << endl;
 	Path res = school.P2P(buids[a].posi, buids[b].posi);
 	// res.path.push_back(res.now);
 	outpath(res, pathout);
 	// pointout(res.path, b);
+	pathout.close();
 }
