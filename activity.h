@@ -11,17 +11,6 @@ struct Month
 	void putime(ostream &xout);
 };
 
-struct Tome
-{
-	int day;  // 表示星期
-	int hour; // 以小时为单位进行活动
-
-	int nextime();
-	void nextday();
-	void outime(ostream &xout);
-	void putime(ostream &xout);
-};
-
 struct Activity // 学生活动信息
 {
 	int kind;	 // 5考试，4课程，3闹钟，2活动，1临时事务

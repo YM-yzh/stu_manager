@@ -14,6 +14,17 @@ extern Graph school;
 void out_dict();
 void mapinit();
 
+struct Tome
+{
+	int day;  // 表示星期
+	int hour; // 以小时为单位进行活动
+
+	int nextime();
+	void nextday();
+	void outime(ostream &xout);
+	void putime(ostream &xout);
+};
+
 struct Temp
 {
 	Tome tome;

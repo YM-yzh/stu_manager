@@ -207,6 +207,14 @@ vAiter Student::find_acti(Activity acti)
 	return this->acti.begin() + left - 1;
 }
 
+void Student::insert(vAiter targt, Activity acti)
+{
+	this->acti.insert(targt, acti);
+	this->acti_num++;
+	if (acti.kind > 3)
+		this->less_num++;
+}
+
 vT Student::insert_acti(Activity acti)
 {
 	vT feb = {};
@@ -215,26 +223,19 @@ vT Student::insert_acti(Activity acti)
 	feb.push_back(pp);
 
 	auto targt = this->find_acti(acti);
-	bool flag;
-	if(targt + 1 == this->begin())
-		flag = opafter(targt + 1, acti);
-	if(targt == this->end())
-		flag = opbefore(targt --, acti);
-	else
-		flag = opins(targt, acti);
-	if (flag)
+	if (acti.kind == 1)
 	{
-		if (acti.kind == 1)
-		{
-
-		}
-		else
-		{
-			this->acti.insert(targt + 1, acti);
-			this->acti_num++;
-			if (acti.kind > 3)
-				this->less_num++;
-		}
+	}
+	else
+	{
+		if(targt + 1 == this->begin())
+			if (opafter(targt, acti))
+				this->insert(this->begin(), acti);
+		else if(targt == this->end())
+			if (opbefore(targt, acti))
+				this->acti.push_back(acti);
+		else if (opins(targt, acti))
+			this->insert(targt + 1, acti);
 		return feb;
 	}
 	feb.pop_back();

@@ -38,6 +38,7 @@ public:
 	vAiter find_acti(Tome tome);
 	vA find_acti(int kind);
 
+	void insert(vAiter targt, Activity acti);
 	vT insert_acti(Activity acti);                                // 二分查找课程
 	vT change_acti(Activity acti);                                // 修改活动信息
 	bool cancel_acti(string name);                                  // 取消活动
