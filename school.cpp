@@ -116,28 +116,58 @@ void outpath(Path &res, ostream &xout)
 		xout << i.x << ' ' << i.y << endl;
 }
 
-void Go(int a, int b)
+void go(int a, int b, ostream& pathout)
 {
-	ofstream pathout(file_path + "path.out");
 	debugout << buids[a].name << " -> " << buids[b].name << endl;
 	pathsout << buids[a].name << " -> " << buids[b].name << endl;
 	Path res = school.P2P(buids[a].posi, buids[b].posi);
 	// res.path.push_back(res.now);
 	outpath(res, pathout);
 	// pointout(res.path, b);
+}
+
+void Go(int a, int b)
+{
+	ofstream pathout(file_path + "path.out");
+	pathout << "1" << endl;
+	go(a, b, pathout);
 	pathout.close();
 }
 
-void muilti_go(int now, Temp a)
+void multi_go(int now, Temp a)
 {
+	ofstream pathout(file_path + "path.out");
 
+	pathout << a.num + 1 << endl;
+
+	int back = now;
+	bool vis[5] = {0};
+
+	for(int i = 1; i <= a.num; i++)
+	{
+		int ds = DISMAX;
+		int id = -1;
+		for (int j = 1; j <= a.num; j++)
+		{
+			int aid = buid_dict[a.temp_acti[j].loca];
+			if (!vis[j] && dis[now][aid] < ds)
+			{
+				id = j;
+				ds = dis[now][aid];
+			}
+		}
+		go(now, id, pathout);
+		now = id; vis[id]=true;
+	}
+	go(now, back, pathout);
+	pathout.close();
 }
 
 int dis[NUM][NUM] = {};
 
 void Floyed(int num)
 {
-	memset(dis, 114514, sizeof(dis));
+	memset(dis, DISMAX, sizeof(dis));
 	for(int i=1;i<=num;i++)
 		for(int j=1;j<i;j++)
 			dis[i][j]=dis[j][i]=school.BFS(buids[i].posi, buids[j].posi).path.size();

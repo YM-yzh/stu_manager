@@ -149,9 +149,8 @@ bool action(string &str)
 		Tome alarm;
 		int freq;
 		cin >> alarm.day >> alarm.hour;
-		cin >> freq;
 
-		bool op = stu->add_alarm(acti, alarm, freq);
+		bool op = stu->add_alarm(acti, alarm);
 		if (!op)
 			cout << "failed" << endl;
 		return false;
@@ -289,6 +288,14 @@ void preload()
 // now action
 // path
 
+bool operator < (Temp::BB a, Temp::BB b)
+{
+	int aid = buid_dict[a.loca];
+	int bid = buid_dict[b.loca];
+	int mid = stu->get_Location();
+	return dis[mid][aid] < dis[mid][bid];
+}
+
 bool action(Activity acti)
 {
 	if (acti.kind > 3 || acti.kind == 2)
@@ -305,7 +312,8 @@ bool action(Activity acti)
 	}
 	else if (acti.kind == 1)
 	{
-		muilti_go(stu->get_Location(), acti.tt);
+		// sort (acti.tt.temp_acti + 1, acti.tt.temp_acti + acti.tt.num);
+		multi_go(stu->get_Location(), acti.tt);
 	}
 	switch (acti.freq)
 	{

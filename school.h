@@ -28,7 +28,7 @@ struct Tome
 struct Temp
 {
 	Tome tome;
-	int temp_num;
+	int num;
 	struct BB
 	{
 		string name, loca;
@@ -40,7 +40,7 @@ struct Temp
 void pointout(deque<Position> &path, int x);
 void outpath(Path &res, ostream &xout);
 void Go(int a, int b);
-void muilti_go(int now, Temp a);
+void multi_go(int now, Temp a);
 
 extern int dis[NUM][NUM];
 

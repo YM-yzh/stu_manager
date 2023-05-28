@@ -20,6 +20,8 @@ using namespace std;
 #define bEgin 6
 #define eNd 23
 
+#define DISMAX 1e6 +7
+
 typedef map<string, int, greater<string>> maps;
 
 // extern bool admin;

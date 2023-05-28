@@ -43,7 +43,7 @@ public:
 	vT change_acti(Activity acti);                                // 修改活动信息
 	bool cancel_acti(string name);                                  // 取消活动
 	vAiter erase_acti(vAiter targt);
-	bool add_alarm(Activity acti, Tome tome, int freq);               // 闹钟
+	bool add_alarm(Activity acti, Tome tome);               // 闹钟
 
 	void nextday(int day, vAiter begin);
 	void move(string& loca);

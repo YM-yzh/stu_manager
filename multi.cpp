@@ -13,21 +13,17 @@ ofstream testout(file_path + "requests.out");
 
 void stutest()
 {
-	int num_reqs;
-	string a, b;
+	Temp tt;
+	string now;
 
-	info_reqs >> num_reqs;
-
-	for (int i = 1; i <= num_reqs; i++)
+	info_reqs >> now;
+	info_reqs >> tt.num;
+	for(int i=1;i<=tt.num;i++)
 	{
-		info_reqs >> a >> b;
-		int aid = buid_dict[a];
-		int bid = buid_dict[b];
-
-		debugout << i << endl;
-		Go(aid, bid);
-		debugout << endl;
+		info_reqs >> tt.temp_acti[i].name;
+		info_reqs >> tt.temp_acti[i].loca;
 	}
+	multi_go(buid_dict[now], tt);
 }
 
 int main()

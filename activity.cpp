@@ -95,7 +95,7 @@ void Tome::putime(ostream &xout)
 
 void Temp::add(string name, string loca)
 {
-	this->temp_acti[++temp_num] = (BB){name, loca};
+	this->temp_acti[++num] = (BB){name, loca};
 }
 
 void Activity::read(istream &ss)

@@ -144,7 +144,20 @@ vA Student::find_acti(int kind)
 	vA res = {};
 	for (auto i : this->acti)
 		if (i.kind == kind)
-			res.push_back(i);
+		{
+			if (i.kind != 1)
+				res.push_back(i);
+			else
+			{
+				Activity t = i;
+				for(int j = 1; j <= i.tt.num; j++)
+				{
+					t.name = i.tt.temp_acti[j].name;
+					t.loca = i.tt.temp_acti[j].loca;
+					res.push_back(t);
+				}
+			}
+		}
 	return res;
 }
 
@@ -225,19 +238,29 @@ vT Student::insert_acti(Activity acti)
 	auto targt = this->find_acti(acti);
 	if (acti.kind == 1)
 	{
+		acti.tt.add(acti.name, acti.loca);
+		// acti.name = "temp";
+		if (targt->tome == acti.tome)
+		{
+			targt->tt.add(acti.name, acti.loca);
+			return feb;
+		}
 	}
-	else
+	bool op = false;
+	if(targt + 1 == this->begin())
 	{
-		if(targt + 1 == this->begin())
-			if (opafter(targt, acti))
-				this->insert(this->begin(), acti);
-		else if(targt == this->end())
-			if (opbefore(targt, acti))
-				this->acti.push_back(acti);
-		else if (opins(targt, acti))
-			this->insert(targt + 1, acti);
-		return feb;
+		if (op = opafter(targt, acti))
+			this->insert(this->begin(), acti);
 	}
+	else if(targt == this->end())
+	{
+		if (op = opbefore(targt, acti))
+			this->acti.push_back(acti);
+	}
+	else if (op = opins(targt, acti))
+		this->insert(targt + 1, acti);
+	if (op)
+		return feb;
 	feb.pop_back();
 
 	Tome begin = (Tome){targt->tome.day, 6};
@@ -288,7 +311,7 @@ vAiter Student::erase_acti(vAiter targt)
 	return res;
 }
 
-bool Student::add_alarm(Activity acti, Tome tome, int freq)
+bool Student::add_alarm(Activity acti, Tome tome)
 {
 	Activity alarm = acti;
 	alarm.kind = 3;
@@ -296,7 +319,6 @@ bool Student::add_alarm(Activity acti, Tome tome, int freq)
 	alarm.that = alarm.tome;
 	alarm.tome = tome;
 	alarm.last = 0;
-	alarm.freq = freq;
 	auto res = this->insert_acti(alarm);
 	return res.begin()->first.day == 0;
 }
