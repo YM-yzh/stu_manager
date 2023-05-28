@@ -98,12 +98,14 @@ void Student::init_activity(ifstream &less, ifstream &acti)
 	for (int i = 1; i <= less_num; i++)
 	{
 		x.read(less);
+		x.that = x.tome;
 		this->acti.push_back(x);
 		// this->acti_dict.emplace(x.name, i-1);
 	}
 	for (int i = 1; i <= acti_num; i++)
 	{
 		x.read(acti);
+		x.that = x.tome;
 		this->acti.push_back(x);
 		// this->acti_dict.emplace(x.name, i-1);
 	}
