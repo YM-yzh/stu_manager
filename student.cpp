@@ -121,7 +121,7 @@ void Student::save_activity(ostream &less, ostream &acti)
 	{
 		if (i.kind > 3)
 			i.write(less);
-		if (i.kind < 3)
+		if (i.kind <= 3)
 			i.write(acti);
 	}
 }
@@ -317,7 +317,6 @@ bool Student::add_alarm(Activity acti, Tome tome)
 {
 	Activity alarm = acti;
 	alarm.kind = 3;
-	alarm.name = "闹钟" + name;
 	alarm.that = alarm.tome;
 	alarm.tome = tome;
 	alarm.last = 0;
