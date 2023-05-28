@@ -102,14 +102,14 @@ void Student::init_activity(ifstream &less, ifstream &acti)
 		this->acti.push_back(x);
 		// this->acti_dict.emplace(x.name, i-1);
 	}
+	sort(this->acti.begin(), this->acti.end());
 	for (int i = 1; i <= acti_num; i++)
 	{
 		x.read(acti);
 		x.that = x.tome;
-		this->acti.push_back(x);
+		this->insert_acti(x);
 		// this->acti_dict.emplace(x.name, i-1);
 	}
-	sort(this->acti.begin(), this->acti.end());
 	// actiout(this->acti);
 }
 
@@ -238,16 +238,10 @@ vT Student::insert_acti(Activity acti)
 	feb.push_back(pp);
 
 	auto targt = this->find_acti(acti);
+
 	if (acti.kind == 1)
-	{
 		acti.tt.add(acti.name, acti.loca);
-		// acti.name = "temp";
-		if (targt->tome == acti.tome)
-		{
-			targt->tt.add(acti.name, acti.loca);
-			return feb;
-		}
-	}
+
 	bool op = false;
 	if(targt + 1 == this->begin())
 	{
@@ -256,11 +250,23 @@ vT Student::insert_acti(Activity acti)
 	}
 	else if(targt == this->end())
 	{
+		if (targt->kind == 1)
+		{
+			targt->tt.add(acti.name, acti.loca);
+			return feb;
+		}
 		if (op = opbefore(targt, acti))
 			this->acti.push_back(acti);
 	}
 	else if (op = opins(targt, acti))
+	{
+		if (targt->kind == 1)
+		{
+			targt->tt.add(acti.name, acti.loca);
+			return feb;
+		}
 		this->insert(targt + 1, acti);
+	}
 	if (op)
 		return feb;
 	feb.pop_back();
