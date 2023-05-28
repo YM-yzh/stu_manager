@@ -18,7 +18,7 @@ using namespace std;
 #define Legth 100
 
 #define bEgin 6
-#define eNd 23
+#define eNd 22
 
 #define DISMAX 1e6 +7
 
